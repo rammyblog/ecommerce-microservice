@@ -1,4 +1,4 @@
-const { Sequelize } = require('sequelize');
+import { Sequelize } from 'sequelize';
 
 const sequelize = new Sequelize(
   'postgres://postgres:test@localhost:5432/api-gateway'
@@ -15,4 +15,4 @@ const connectDb = async () => {
   }
 };
 
-exports.connectDb = connectDb;
+export default connectDb;

@@ -1,10 +1,10 @@
-const express = require('express');
-
-const { ROUTES } = require('./routes');
-
-const { setupLogging } = require('./logging');
-const { setupProxies } = require('./proxy');
-const { connectDb } = require('./db');
+/* eslint-disable import/extensions */
+// const { ROUTES } = require('./routes');
+import express from 'express';
+import ROUTES from './routes.js';
+import setupLogging from './logging.js';
+import setupProxies from './proxy.js';
+import connectDb from './db.js';
 
 const app = express();
 connectDb();

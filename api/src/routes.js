@@ -6,7 +6,7 @@ const ROUTES = [
       target: 'https://www.google.com',
       changeOrigin: true,
       pathRewrite: {
-        [`^/free`]: ''
+        '^/free': ''
       }
     }
   },
@@ -17,10 +17,11 @@ const ROUTES = [
       target: 'https://www.google.com',
       changeOrigin: true,
       pathRewrite: {
-        [`^/premium`]: ''
+        '^/premium': ''
       }
     }
   }
 ];
 
-exports.ROUTES = ROUTES;
+// exports.ROUTES = ROUTES;
+export default ROUTES;

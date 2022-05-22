@@ -1,4 +1,4 @@
-const { createProxyMiddleware } = require('http-proxy-middleware');
+import { createProxyMiddleware } from 'http-proxy-middleware';
 
 const setupProxies = (app, routes) => {
   routes.forEach((r) => {
@@ -6,4 +6,4 @@ const setupProxies = (app, routes) => {
   });
 };
 
-exports.setupProxies = setupProxies;
+export default setupProxies;
