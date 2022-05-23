@@ -9,6 +9,7 @@ module.exports = {
     ecmaVersion: 11
   },
   rules: {
-    'comma-dangle': ['error', 'never']
+    'comma-dangle': ['error', 'never'],
+    'import/extensions': [0, { js: 'always' }]
   }
 };
