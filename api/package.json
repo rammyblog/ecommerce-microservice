@@ -23,6 +23,7 @@
     "sequelize": "^6.19.1"
   },
   "devDependencies": {
+    "babel-register": "^6.26.0",
     "eslint": "^8.15.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0",
