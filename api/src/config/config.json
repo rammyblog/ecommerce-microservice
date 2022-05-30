@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "postgres",
-    "password": "",
+    "password": "postgres",
     "database": "api-gateway",
     "host": "localhost",
     "dialect": "postgres"
