@@ -1,6 +1,7 @@
 FROM node:16.15-alpine3.14
 RUN mkdir -p /opt/app
-WORKDIR /
+WORKDIR /app
+COPY package*.json .
 RUN adduser -S app
 COPY / .
 RUN npm i

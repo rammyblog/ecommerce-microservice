@@ -20,5 +20,5 @@ setupProxies(app, ROUTES);
 app.use('/api/auth', authRoutes);
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`api-gateway app listening at http://localhost:${port}`);
 });
