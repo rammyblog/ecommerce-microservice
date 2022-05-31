@@ -1,27 +1,28 @@
+// This is where we redirect all our routes to other services
+
 const ROUTES = [
   {
-    url: '/free',
+    url: '/api/protected',
+    auth: true,
+    proxy: {
+      target: 'http://localhost:3000/api/free',
+      changeOrigin: true,
+      pathRewrite: {
+        [`^/api/protected`]: ''
+      }
+    }
+  },
+  {
+    url: '/api/free',
     auth: false,
     proxy: {
       target: 'https://www.google.com',
       changeOrigin: true,
       pathRewrite: {
-        '^/free': ''
-      }
-    }
-  },
-  {
-    url: '/premium',
-    auth: true,
-    proxy: {
-      target: 'https://www.google.com',
-      changeOrigin: true,
-      pathRewrite: {
-        '^/premium': ''
+        [`^/api/free`]: ''
       }
     }
   }
 ];
 
-// exports.ROUTES = ROUTES;
 export default ROUTES;
