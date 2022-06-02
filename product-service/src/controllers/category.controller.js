@@ -1,11 +1,10 @@
-//category.js
-const Category = require("../models").Category;
-const {categorySchema} = require("../validators/category");
-const ErrorResponse = require('../utils/error');
-const SuccessResponse = require('../utils/success')
 
+import Category from "../models/Category.js"
+import SuccessResponse from "../utils/success.js"
+import ErrorResponse from "../utils/error.js"
+import categorySchema from "../validators/category.js"
 
-module.exports = {
+const category = {
     // @desc    Get all categories
     // @route   POST /api/v1/categories
     // @access  Public
@@ -113,3 +112,5 @@ module.exports = {
           }
     },
 }
+
+export default category

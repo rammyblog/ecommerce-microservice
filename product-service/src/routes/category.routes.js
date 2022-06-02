@@ -1,8 +1,7 @@
-const express = require("express");
 
-const categoryController = require("../controllers/category");
-const authMiddleware = require("../middleware/authMiddleware");
-const {createValidator} = require("../validators/category")
+
+import express from 'express';
+import categoryController  from '../controllers/category.controller.js';
 
 const router = express.Router();
 const {
@@ -21,4 +20,4 @@ router.get("/categories/:categoryId", getACategory)
 router.post("/categories",  createCategory)
 router.delete("/categories/:categoryId", deleteCategory)
 router.patch("/categories/:categoryId",  updateCategory);
-module.exports = router;
+export default router;

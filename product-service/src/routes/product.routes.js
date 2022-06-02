@@ -1,7 +1,7 @@
-const express = require("express");
-
-const productController = require("../controllers/product");
-// const  = require("../middleware/");
+// const express = require("express");
+import express from 'express';
+import productController  from '../controllers/product.controller.js';
+// const productController = require("../controllers/product");
 
 
 const router = express.Router();
@@ -24,4 +24,4 @@ router.delete("/products/:productId",deleteProduct)
 router.patch("/products/:productId", updateProduct);
 router.get("/category/:categoryId/products",getProductsByCategory);
 
-module.exports = router;
+export default router;

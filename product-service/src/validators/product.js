@@ -1,4 +1,4 @@
-const Joi = require('@hapi/joi')
+import Joi from '@hapi/joi'
 
 const productSchema = Joi.object({
   name: Joi.string().required().min(5),
@@ -9,9 +9,8 @@ const productSchema = Joi.object({
   categoryId:Joi.number().required(),
 }, ).options({ abortEarly: false })
 
-module.exports = {
-  productSchema,
-}
+export default productSchema;
+
 
 
 

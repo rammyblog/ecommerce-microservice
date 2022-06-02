@@ -1,12 +1,12 @@
-//Product.js
-const Product = require("../models").Product;
-const Category = require("../models").Category
-const SuccessResponse = require("../utils/success")
-const ErrorResponse = require('../utils/error');
-const {productSchema} = require("../validators/product")
+import Product from "../models/Product.js"
+import Category from "../models/Category.js"
+import SuccessResponse from "../utils/success.js"
+import ErrorResponse from "../utils/error.js"
+import productSchema from "../validators/product.js"
 
 
-module.exports = {
+
+const product = {
     // @desc    Get all products belonging to a category
     // @route   POST /api/v1/category/categoryId/products
     // @access  Public
@@ -149,4 +149,6 @@ module.exports = {
               return next(new ErrorResponse(e.message, 500));
           }
     },
-}
+} 
+
+export default product

@@ -1,5 +1,5 @@
 //CATEGORY Schema
-module.exports = (sequelize, DataTypes) => {
+const Category = (sequelize, DataTypes) => {
     let Category = sequelize.define("Category", {
       name: DataTypes.STRING,
       description: DataTypes.TEXT,
@@ -12,3 +12,5 @@ module.exports = (sequelize, DataTypes) => {
   
     return Category
   }
+
+  export default Category

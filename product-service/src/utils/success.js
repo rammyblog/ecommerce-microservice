@@ -6,7 +6,7 @@ const SuccessResponse = async (res, message, data, statusCode) => {
         data: data
     }); 
 };
-module.exports = SuccessResponse;
+export default SuccessResponse;
 
 
 

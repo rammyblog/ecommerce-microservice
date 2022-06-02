@@ -1,5 +1,5 @@
 //PRODUCT Schema
-module.exports = (sequelize, DataTypes) => {
+const Product = (sequelize, DataTypes) => {
   let Product = sequelize.define("Product", {
     name: DataTypes.STRING,
     description: DataTypes.TEXT,
@@ -39,3 +39,5 @@ module.exports = (sequelize, DataTypes) => {
 
   return Product
 }
+
+export default Product
