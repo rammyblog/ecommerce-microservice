@@ -1,6 +1,4 @@
-const { sequelize } = require("../models");
 
-//create-post.js
 module.exports = {
     up: (queryInterface, Sequelize) =>
       queryInterface.createTable("Products", {
@@ -28,24 +26,24 @@ module.exports = {
           allowNull:false,
           type:Sequelize.FLOAT
         },
-        categoryId:{
-            type:Sequelize.INTEGER,
-            onDelete: "CASCADE",
-            references:{
-                model:"categories",
-                key:"id",
-                as: "categoryId"
-            },
-        }, 
-        userId: {
-          type: Sequelize.INTEGER,
-          onDelete: "CASCADE",
-          references: {
-            model: "users",
-            key: "id",
-            as: "userId",
-          },
-        },
+        // categoryId:{
+        //     type:Sequelize.INTEGER,
+        //     onDelete: "CASCADE",
+        //     references:{
+        //         model:"categories",
+        //         key:"id",
+        //         as: "categoryId"
+        //     },
+        // }, 
+        // userId: {
+        //   type: Sequelize.INTEGER,
+        //   onDelete: "CASCADE",
+        //   references: {
+        //     model: "users",
+        //     key: "id",
+        //     as: "userId",
+        //   },
+        // },
         sku:{
           allowNull:false,
           type:Sequelize.INTEGER
