@@ -1,10 +1,11 @@
 {
   "development": {
     "username": "postgres",
-    "password": "postgres",
-    "database": "api-gateway",
+    "password": "test",
+    "database": "ms-product-service",
     "host": "localhost",
     "dialect": "postgres"
+    
   },
   "test": {
     "username": "postgres",
@@ -18,10 +19,10 @@
     "use_env_variable": "DATABASE_URL",
     "dialect": "postgres",
     "dialectOptions": {
-       "ssl": {
-         "require": true,
-         "rejectUnauthorized": false
-       }
-     }
-   }
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
+  }
 }

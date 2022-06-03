@@ -1,7 +1,7 @@
 import { Sequelize } from 'sequelize';
 
 const sequelize = new Sequelize(
-  process.env.DB_SCHEMA || 'api-gateway',
+  process.env.DB_SCHEMA || 'ms-product-service',
   process.env.DB_USER || 'postgres',
   process.env.DB_PASSWORD || 'test',
   {
