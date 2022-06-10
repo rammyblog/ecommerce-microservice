@@ -16,7 +16,7 @@ const OrderDetail = new EntitySchema({
       required: true,
     },
     orderId: {
-      type: 'date',
+      type: 'int',
       required: true,
     },
     price: {

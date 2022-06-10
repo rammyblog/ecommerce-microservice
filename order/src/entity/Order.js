@@ -11,7 +11,7 @@ const OrderEntity = new EntitySchema({
       type: 'int',
       generated: true,
     },
-    customerId: {
+    userId: {
       type: 'int',
       required: true,
     },
