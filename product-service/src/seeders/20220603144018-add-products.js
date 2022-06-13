@@ -51,8 +51,8 @@ module.exports = {
       {}
     ),
   down: async (queryInterface) => {
-    await queryInterface.bulkDelete('Products', {
-      [Op.or]: [{ name: 'USD' }, { name: 'EUR' }]
-    });
+    // await queryInterface.bulkDelete('Products', {
+    //   [Op.or]: [{ name: 'USD' }, { name: 'EUR' }]
+    // });
   }
 };
