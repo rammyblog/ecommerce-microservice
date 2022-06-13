@@ -9,14 +9,14 @@ import setupAuth from './setupAuth.js';
 
 dotenv.config();
 const app = express();
+setupAuth(app, ROUTES);
+setupProxies(app, ROUTES);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 connectDb();
 const port = process.env.PORT || 3000;
 
 setupLogging(app);
-setupAuth(app, ROUTES);
-setupProxies(app, ROUTES);
 
 app.use('/api/auth', authRoutes);
 

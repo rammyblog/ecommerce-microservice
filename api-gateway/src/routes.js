@@ -2,13 +2,13 @@
 
 const ROUTES = [
   {
-    url: '/api/protected',
+    url: '/api/create-orders/',
     auth: true,
     proxy: {
-      target: 'http://localhost:3000/api/free',
+      target: 'http://localhost:3002/api/orders',
       changeOrigin: true,
       pathRewrite: {
-        [`^/api/protected`]: ''
+        [`^/api/create-orders/`]: ''
       }
     }
   },

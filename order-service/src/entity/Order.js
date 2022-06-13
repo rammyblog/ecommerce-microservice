@@ -1,10 +1,12 @@
 import typeorm from 'typeorm';
+import OrderModel from '../model/Order.js';
 
 const EntitySchema = typeorm.EntitySchema;
 
 const OrderEntity = new EntitySchema({
   name: 'Order', // Will use table name `post` as default behaviour.
   tableName: 'orders', // Optional: Provide `tableName` property to override the default behaviour for table name.
+  target: OrderModel,
   columns: {
     id: {
       primary: true,
@@ -15,10 +17,6 @@ const OrderEntity = new EntitySchema({
       type: 'int',
       required: true,
     },
-    orderTimestamp: {
-      type: 'timestamptz',
-      required: true,
-    },
     paid: {
       type: 'boolean',
       default: false,
@@ -27,13 +25,9 @@ const OrderEntity = new EntitySchema({
       type: 'varchar',
       required: false,
     },
-
     phoneNumber: {
       type: 'varchar',
       required: false,
-    },
-    email: {
-      type: 'text',
     },
     amount: {
       type: 'float',
@@ -47,6 +41,8 @@ const OrderEntity = new EntitySchema({
     },
     reference: {
       type: 'text',
+      required: false,
+      nullable: true,
     },
     created_at: {
       type: 'timestamptz',
@@ -59,7 +55,7 @@ const OrderEntity = new EntitySchema({
   },
   relations: {
     order_details: {
-      target: 'OrderDetail',
+      target: 'OrderDetailModel',
       type: 'many-to-many',
       joinTable: true,
       cascade: true,
