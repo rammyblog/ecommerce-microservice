@@ -13,13 +13,13 @@ const ROUTES = [
     }
   },
   {
-    url: '/api/free',
+    url: '/api/orders/',
     auth: false,
     proxy: {
-      target: 'https://www.google.com',
+      target: 'http://localhost:3002/api/orders',
       changeOrigin: true,
       pathRewrite: {
-        [`^/api/free`]: ''
+        [`^/api/orders/`]: ''
       }
     }
   }

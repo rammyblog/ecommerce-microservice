@@ -36,7 +36,7 @@ export const createOrder = async (req, res) => {
       newOrderDetail.productId = item.productId;
       newOrderDetail.price = item.price;
       newOrderDetail.quantity = item.quantity;
-      newOrderDetail.order = order;
+      newOrderDetail.orderId = order.id;
       // defer the creation
       orderDetailsArray.push(OrderDetailService.create(newOrderDetail));
     });
@@ -45,6 +45,36 @@ export const createOrder = async (req, res) => {
     await OrderService.update(order);
 
     res.status(201).json({ order });
+  } catch (err) {
+    console.log({ err });
+    return res.status(400).json({ error_msg: err.message });
+  }
+};
+
+export const getOrders = async (req, res) => {
+  try {
+    const orders = await OrderService.getAll();
+    res.status(200).json({ orders });
+  } catch (err) {
+    console.log({ err });
+    return res.status(400).json({ error_msg: err.message });
+  }
+};
+
+export const getSingleOrder = async (req, res) => {
+  try {
+    const order = await OrderService.getById(req.params.id);
+    res.status(200).json({ order });
+  } catch (err) {
+    console.log({ err });
+    return res.status(400).json({ error_msg: err.message });
+  }
+};
+
+export const getUserOrders = async (req, res) => {
+  try {
+    const orders = await OrderService.getByUserId(req.user.id);
+    res.status(200).json({ orders });
   } catch (err) {
     console.log({ err });
     return res.status(400).json({ error_msg: err.message });

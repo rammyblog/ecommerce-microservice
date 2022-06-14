@@ -1,4 +1,5 @@
 import { CategoryType } from './GraphQLCategoryType';
+import { fetch, servicesURL } from './service.js';
 
 const {
   GraphQLObjectType,
@@ -24,7 +25,7 @@ export const ProductType = new GraphQLObjectType({
     category: {
       type: CategoryType,
       resolve: async (product, args) => {
-        let data = await serviceData.fetch(ServiceType.AUTHOR_SERVICE);
+        let data = await fetch(servicesURL.CATEGORY_SERVICE);
         return data.products.find(
           (category) => category.id === product.categoryId
         );

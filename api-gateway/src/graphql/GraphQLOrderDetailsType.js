@@ -22,7 +22,7 @@ export const OrderDetailType = new GraphQLObjectType({
       type: OrderType,
       resolve: async (OrderDetail, args) => {
         let data = await serviceData.fetch(ServiceType.ORDER_SERVICE);
-        return data.orders.find((order) => order.id === OrderDetail.orderId);
+        return data.find((order) => order.id === OrderDetail.orderId);
       }
     },
     product: {
