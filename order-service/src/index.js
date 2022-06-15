@@ -3,6 +3,7 @@ import express from 'express';
 import AppDataSource from './config/datasource.js';
 import setupLogging from './logging.js';
 import orderRoutes from './routes/order.routes.js';
+import kafkaConsumer from './worker/consumer.js';
 dotenv.config();
 
 const app = express();
@@ -21,6 +22,8 @@ AppDataSource.initialize()
   .catch((error) => console.log(error));
 
 app.use('/api/orders', orderRoutes);
+const kafkaTopic = 'transaction-success';
+kafkaConsumer(kafkaTopic);
 app.listen(PORT, () => {
   console.log(`order app listening at http://localhost:${PORT}`);
 });

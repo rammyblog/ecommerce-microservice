@@ -1,6 +1,8 @@
 import Paystack from '../paystack.js';
 import crypto from 'crypto';
 import { initializeTransactionValidation } from '../utils/transaction.validation.js';
+import TransactionService from '../services/transaction.services.js';
+import kafkaProducer from '../worker/producer.js';
 
 const validation = {
   initializeTransaction: initializeTransactionValidation,
@@ -22,6 +24,11 @@ export const initializeTransaction = async (req, res) => {
       amount,
       req.user.email
     );
+    const transaction = TransactionService.init();
+    transaction.orderId = orderId;
+    transaction.amount = amount;
+    transaction.reference = paystackTransaction.data.reference;
+
     res.status(201).json({ paystackTransaction });
   } catch (err) {
     console.log({ err });
@@ -51,10 +58,17 @@ export const paystackWebhook = async (req, res) => {
     if (hash == req.headers['x-paystack-signature']) {
       // Retrieve the request's body
       const event = req.body;
-      console.log(event);
       if (event.event === 'charge.success') {
         const { data } = event;
-        console.log('here', data);
+        kafkaProducer('transaction-success', { value: 'successful' });
+        const transaction = await TransactionService.getByReference(
+          data.reference
+        );
+        if (transaction) {
+          transaction.paid = true;
+
+          await TransactionService.update(transaction);
+        }
         res.sendStatus(200);
       }
     }

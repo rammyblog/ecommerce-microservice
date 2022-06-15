@@ -20,6 +20,7 @@
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "http-proxy-middleware": "^2.0.6",
+    "ip": "^1.1.8",
     "jsonwebtoken": "^8.5.1",
     "kafkajs": "^2.0.2",
     "pg": "^8.7.3",
