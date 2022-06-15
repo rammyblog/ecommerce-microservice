@@ -43,13 +43,15 @@ export const createOrder = async (req, res) => {
     order.order_details = await Promise.all(orderDetailsArray);
 
     await OrderService.update(order);
-
+    // send topic to payment service
     res.status(201).json({ order });
   } catch (err) {
     console.log({ err });
     return res.status(400).json({ error_msg: err.message });
   }
 };
+
+
 
 export const getOrders = async (req, res) => {
   try {

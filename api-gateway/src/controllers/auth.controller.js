@@ -35,7 +35,6 @@ export const createUser = async (req, res) => {
     console.log(req.body);
     const user = await User.create(req.body);
     // Send email using sendgrid here
-    console.log(user.toJSON());
     return res.status(201).json({ data: user.toJSON() });
   } catch (err) {
     console.log({ err });
@@ -62,7 +61,7 @@ export const loginUser = async (req, res) => {
 
     //   Create and assign a token
     const token = jwt.sign(
-      { id: user.id, role: user.role },
+      { id: user.id, role: user.role, email: user.email },
       process.env.TOKEN_SECRET
     );
     return res.status(200).json({ access_token: token });
