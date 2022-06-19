@@ -26,6 +26,8 @@ const handleValidation = (body, res, type) => {
 export const createOrder = async (req, res) => {
   try {
     handleValidation(req.body, res, 'createOrder');
+    const productBaseUrl = `${process.env.PRODUCTMS_BASE_URL}`;
+
     const { cart, address, phoneNumber } = req.body;
     const newOrder = OrderService.init();
     newOrder.address = address;
