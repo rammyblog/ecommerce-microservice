@@ -26,11 +26,7 @@ const product = {
     // @access  Public
   async getAllProducts(req, res, next) {
     try {
-      // { model: User, as: 'bands', attributes: ['id', 'name'] },
-
-      const productCollection = await Product.findAll({include: [
-        { model: Category, attributes: ['id', 'name'] }
-    ]})
+      const productCollection = await Product.findAll()
       return SuccessResponse(res, "Product retrieved successfully", productCollection,  200)
 
     } catch (e) {
@@ -43,10 +39,7 @@ const product = {
     // @access  Private
   async getAProduct(req, res, next) {
     try {
-      const productCollection = await Product.findOne({where:{id:req.params.productId}, include: [
-        { model: Category, attributes: ['id', 'name'] }
-
-    ]})
+      const productCollection = await Product.findOne({where:{id:req.params.productId}})
         if(productCollection === null){
           return next(new ErrorResponse(`Product with the id of ${req.params.productId} does not exist`, 404));
 

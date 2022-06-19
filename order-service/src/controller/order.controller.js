@@ -1,10 +1,19 @@
 import OrderService from '../services/order.services.js';
 import OrderDetailService from '../services/orderDetail.services.js';
 import { createOrderValidation } from '../utils/order.validation.js';
+import fetch from "node-fetch"
 
 const validation = {
   createOrder: createOrderValidation,
 };
+
+
+
+
+
+
+  
+
 
 const handleValidation = (body, res, type) => {
   const { error } = validation[type](body);
@@ -27,18 +36,42 @@ export const createOrder = async (req, res) => {
     }, 0);
 
     const order = await OrderService.create(newOrder);
-    // I am trusting the frontend here(Bad design but I am feeling lazy -samson should fix this for us)
+
+
+   
+
+
+   
+
     const orderDetailsArray = [];
     cart.forEach(async (item) => {
-      item.price = parseFloat(item.price);
-      item.quantity = parseInt(item.quantity);
-      const newOrderDetail = OrderDetailService.init();
-      newOrderDetail.productId = item.productId;
-      newOrderDetail.price = item.price;
-      newOrderDetail.quantity = item.quantity;
-      newOrderDetail.orderId = order.id;
-      // defer the creation
-      orderDetailsArray.push(OrderDetailService.create(newOrderDetail));
+      const url = new URL(`${productBaseUrl}/api/product/products/${item.productId}`);
+
+
+      // const productBaseUrl = "http://localhost:3001/api/product/products/${item.productId}";
+      
+      const options = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const response = await fetch(url, options);
+      const jsonResponse = await response.json();
+      const data = jsonResponse.data;
+      if(data.id === item.productId && data.sellingPrice === item.price){
+        item.price = parseFloat(item.price);
+        item.quantity = parseInt(item.quantity);
+        const newOrderDetail = OrderDetailService.init();
+        newOrderDetail.productId = item.productId;
+        newOrderDetail.price = item.price;
+        newOrderDetail.quantity = item.quantity;
+        newOrderDetail.orderId = order.id;
+  
+        // defer the creation
+        orderDetailsArray.push(OrderDetailService.create(newOrderDetail));
+
+      }
     });
     order.order_details = await Promise.all(orderDetailsArray);
 

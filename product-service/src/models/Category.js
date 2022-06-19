@@ -1,16 +1,35 @@
-//CATEGORY Schema
-const Category = (sequelize, DataTypes) => {
-  let Category = sequelize.define('Category', {
-    name: DataTypes.STRING,
-    description: DataTypes.TEXT,
-    isActive: DataTypes.BOOLEAN
-  });
+import Sequelize from 'sequelize';
+import  sequelize  from '../db/postgres.js';
 
-  Category.associate = function (models) {
-    Category.hasMany(models.Product, { as: 'products' });
-  };
+const Category = sequelize.define(
+  'Categories',
+  {
+    id: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    name: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+    description: {
+      type: Sequelize.TEXT,
+      allowNull: false
+    },
+    isActive:{
+      type:Sequelize.BOOLEAN,
+      allowNull:false,
+      // default:true
+    }
+  },
 
-  return Category;
+  
+  { freezeTableName: true }
+);
+
+Category.associate = function (models) {
+  Category.hasMany(models.Product, { as: 'products' });
 };
 
-export default Category;
+export default Category

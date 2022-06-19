@@ -1,6 +1,6 @@
 module.exports = {
   up: (queryInterface, Sequelize) =>
-    queryInterface.createTable('Products', {
+     queryInterface.createTable('Products', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -52,6 +52,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER
       },
+      isActive: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN
+      },
       expirationDate: {
         allowNull: true,
         type: Sequelize.DATE
@@ -66,7 +70,7 @@ module.exports = {
       }
     }),
   down: (queryInterface /* , Sequelize */) => {
-    queryInterface.removeColumn('Products', 'categoryId');
+    // queryInterface.removeColumn('Products', 'categoryId');
     queryInterface.dropTable('Products');
   }
 };
