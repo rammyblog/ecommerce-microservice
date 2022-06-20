@@ -74,6 +74,9 @@ export const createOrder = async (req, res) => {
         orderDetailsArray.push(OrderDetailService.create(newOrderDetail));
 
       }
+      // else{
+      //   return 
+      // }
     });
     order.order_details = await Promise.all(orderDetailsArray);
 
