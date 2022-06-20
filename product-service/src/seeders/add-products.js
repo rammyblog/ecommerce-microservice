@@ -10,7 +10,8 @@ module.exports = {
           costPrice: 200.0,
           availableQuantity: 10,
           sku: 2001,
-          categoryId: 3,
+          isActive:true,
+          categoryId: 1,
           createdAt: new Date(),
           updatedAt: new Date()
         },
@@ -20,8 +21,10 @@ module.exports = {
           sellingPrice: 200.0,
           costPrice: 200.0,
           availableQuantity: 10,
-          categoryId: 4,
+          categoryId: 1,
           sku: 2001,
+          isActive:true,
+
           createdAt: new Date(),
           updatedAt: new Date()
         },
@@ -31,8 +34,10 @@ module.exports = {
           sellingPrice: 200.0,
           costPrice: 200.0,
           availableQuantity: 10,
-          categoryId: 5,
+          categoryId: 1,
           sku: 2001,
+          isActive:true,
+
           createdAt: new Date(),
           updatedAt: new Date()
         },
@@ -41,9 +46,11 @@ module.exports = {
           description: 'Some stuff',
           sellingPrice: 200.0,
           costPrice: 200.0,
-          categoryId: 4,
+          categoryId: 1,
           availableQuantity: 10,
           sku: 2001,
+          isActive:true,
+
           createdAt: new Date(),
           updatedAt: new Date()
         }
