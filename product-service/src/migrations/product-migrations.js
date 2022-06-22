@@ -54,7 +54,8 @@ module.exports = {
       },
       isActive: {
         allowNull: false,
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        default:true
       },
       expirationDate: {
         allowNull: true,

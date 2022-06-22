@@ -47,10 +47,10 @@ export const createOrder = async (req, res) => {
 
     const orderDetailsArray = [];
     cart.forEach(async (item) => {
-      const url = new URL(`${productBaseUrl}/api/product/products/${item.productId}`);
+      const url = new URL(`${productBaseUrl}/api/products/${item.productId}`);
 
 
-      // const productBaseUrl = "http://localhost:3001/api/product/products/${item.productId}";
+      // const productBaseUrl = "http://localhost:3001/api/products/${item.productId}";
       
       const options = {
         method: "GET",
