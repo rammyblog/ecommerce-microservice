@@ -7,5 +7,5 @@ COPY / .
 RUN npm i
 RUN chown -R app /opt/app
 USER app
-EXPOSE 3001
+EXPOSE 3002
 CMD npm run dev

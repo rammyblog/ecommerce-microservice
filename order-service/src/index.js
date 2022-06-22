@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 
 setupLogging(app);
 
-const PORT = process.env.PORT || 3002;
+const PORT = process.env.PORT || 3000;
 
 AppDataSource.initialize()
   .then(() => {

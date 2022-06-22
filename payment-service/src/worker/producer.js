@@ -1,7 +1,6 @@
 import kafka from './kafka.js';
 
 const kafkaProducer = async (topic, messages) => {
-  console.log(topic, messages);
   const producer = kafka.producer();
   await producer.connect();
   await producer.send({

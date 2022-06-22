@@ -1,7 +1,7 @@
 version: '3.9'
 services:
-  db:
-    container_name: db
+  product-db:
+    container_name: product-db
     image: postgres
     environment:
       POSTGRES_USER: postgres
@@ -12,20 +12,22 @@ services:
     volumes:
       - pgdata1:/var/lib/postgresql/data
 
-  api:
-    container_name: api_backend
+  product-service:
+    container_name: product-service
     build: .
+    restart: always
     volumes:
       - .:/app
     environment:
       DB_SCHEMA: product-service
       DB_USER: postgres
       DB_PASSWORD: postgres
-      DB_HOST: db
+      DB_HOST: product-db
+
     depends_on:
-      - db
+      - product-db
     ports:
-      - '3000:3000'
+      - '3001:3000'
 
 volumes:
   pgdata1: {}

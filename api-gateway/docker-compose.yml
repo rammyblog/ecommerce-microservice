@@ -8,12 +8,12 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: api-gateway
     ports:
-      - '6000:6000'
+      - '6003:6003'
     volumes:
       - pgdata1:/var/lib/postgresql/data
 
-  api:
-    container_name: api_backend
+  api-gateway:
+    container_name: api-gateway
     build: .
     volumes:
       - .:/app

@@ -34,15 +34,6 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'SET NULL'
       },
-      // userId: {
-      //   type: Sequelize.INTEGER,
-      //   onDelete: "CASCADE",
-      //   references: {
-      //     model: "users",
-      //     key: "id",
-      //     as: "userId",
-      //   },
-      // },
       sku: {
         allowNull: false,
         type: Sequelize.INTEGER

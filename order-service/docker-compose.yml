@@ -3,18 +3,53 @@ services:
   zookeeper:
     image: wurstmeister/zookeeper:latest
     ports:
-      - '2181:2181'
+      - '127.0.0.1:2181:2181'
   kafka:
     image: wurstmeister/kafka:2.11-1.1.1
     ports:
-      - '9092:9092'
+      - '127.0.0.1:9092:9092'
     links:
       - zookeeper
     environment:
-      KAFKA_ADVERTISED_HOST_NAME: ${HOST_IP}
+      KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
+      KAFKA_ADVERTISED_PORT: 9092
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
       KAFKA_DELETE_TOPIC_ENABLE: 'true'
-      KAFKA_CREATE_TOPICS: 'topic-test:1:1'
+      KAFKA_CREATE_TOPICS: 'transaction-success:1:1'
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+  order-db:
+    container_name: order-db
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: order-service
+    ports:
+      - '6002:6002'
+    volumes:
+      - pgdata1:/var/lib/postgresql/data
+
+  order-service:
+    container_name: order-service
+    build: .
+    restart: always
+    volumes:
+      - .:/app
+    environment:
+      DB_SCHEMA: order-service
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_HOST: order-db
+      DB_DRIVER: postgres
+    depends_on:
+      - order-db
+      - kafka
+      - zookeeper
+
+    ports:
+      - '3002:3000'
+
+volumes:
+  pgdata1: {}

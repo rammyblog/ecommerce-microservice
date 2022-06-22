@@ -1,20 +1,56 @@
 version: '2'
 services:
-  zookeeper:
-    image: wurstmeister/zookeeper:latest
-    ports:
-      - '2181:2181'
-  kafka:
-    image: wurstmeister/kafka:2.11-1.1.1
-    ports:
-      - '9092:9092'
-    links:
-      - zookeeper
+  # zookeeper:
+  #   image: wurstmeister/zookeeper:latest
+  #   ports:
+  #     - '127.0.0.1:2181:2181'
+  # kafka:
+  #   image: wurstmeister/kafka:2.11-1.1.1
+  #   ports:
+  #     - '127.0.0.1:9092:9092'
+  #   links:
+  #     - zookeeper
+  #   environment:
+  #     KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
+  #     KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+  #     KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+  #     KAFKA_DELETE_TOPIC_ENABLE: 'true'
+  #     KAFKA_CREATE_TOPICS: 'transaction-success:1:1'
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+
+  payment-db:
+    container_name: payment-db
+    image: postgres
     environment:
-      KAFKA_ADVERTISED_HOST_NAME: ${HOST_IP}
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
-      KAFKA_DELETE_TOPIC_ENABLE: 'true'
-      KAFKA_CREATE_TOPICS: 'topic-test:1:1'
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: payment-service
+    ports:
+      - '6001:6001'
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      - pgdata1:/var/lib/postgresql/data
+
+  payment-service:
+    container_name: payment-service
+    build: .
+    restart: always
+    volumes:
+      - .:/app
+    environment:
+      DB_SCHEMA: payment-service
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_HOST: payment-db
+      DB_DRIVER: postgres
+
+    depends_on:
+      - payment-db
+      # - kafka
+      # - zookeeper
+
+    ports:
+      - '3003:3000'
+
+volumes:
+  pgdata1: {}

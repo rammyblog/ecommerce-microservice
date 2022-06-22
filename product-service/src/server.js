@@ -10,7 +10,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 connectDb();
-const port = process.env.PORT || 3001;
+const port = 3000;
 
 setupLogging(app);
 

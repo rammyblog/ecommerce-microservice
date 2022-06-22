@@ -1,6 +1,5 @@
-
 import Sequelize from 'sequelize';
-import  sequelize  from '../db/postgres.js';
+import sequelize from '../db/postgres.js';
 
 const Product = sequelize.define(
   'Products',
@@ -14,39 +13,36 @@ const Product = sequelize.define(
       type: Sequelize.STRING,
       allowNull: false
     },
-    categoryId:{
-      type:Sequelize.INTEGER,
-      allowNull:false,
-
+    categoryId: {
+      type: Sequelize.INTEGER,
+      allowNull: false
     },
-    sku:{
+    sku: {
       type: Sequelize.STRING,
-      allowNull:false
+      allowNull: false
     },
-    availableQuantity:{
-      type:Sequelize.TEXT,
-      allowNull:false
+    availableQuantity: {
+      type: Sequelize.TEXT,
+      allowNull: false
     },
-    costPrice:{
-      type:Sequelize.FLOAT,
-      allowNull:false
+    costPrice: {
+      type: Sequelize.FLOAT,
+      allowNull: false
     },
-    sellingPrice:{
-      type:Sequelize.FLOAT,
-      allowNull:false
+    sellingPrice: {
+      type: Sequelize.FLOAT,
+      allowNull: false
     },
     description: {
       type: Sequelize.TEXT,
       allowNull: false
     },
-    isActive:{
-      type:Sequelize.BOOLEAN,
-      allowNull:false,
-      // default:true
+    isActive: {
+      type: Sequelize.BOOLEAN,
+      default: true
     }
   },
 
-  
   { freezeTableName: true }
 );
 
@@ -57,4 +53,4 @@ const Product = sequelize.define(
 //   })
 // }
 
-export default Product
+export default Product;
