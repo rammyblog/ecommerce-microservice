@@ -8,7 +8,7 @@ const kafkaConsumer = async (topic) => {
   await consumer.run({
     eachMessage: async ({ topic, partition, message }) => {
       console.log({
-        value: message.toString(),
+        value: message.value.toString(),
       });
     },
   });

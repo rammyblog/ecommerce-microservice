@@ -28,7 +28,8 @@ export const initializeTransaction = async (req, res) => {
     transaction.orderId = orderId;
     transaction.amount = amount;
     transaction.reference = paystackTransaction.data.reference;
-
+    transaction.userId = req.user.id;
+    await TransactionService.create(transaction);
     res.status(201).json({ paystackTransaction });
   } catch (err) {
     console.log({ err });
@@ -60,13 +61,19 @@ export const paystackWebhook = async (req, res) => {
       const event = req.body;
       if (event.event === 'charge.success') {
         const { data } = event;
-        kafkaProducer('transaction-success', { value: 'successful' });
         const transaction = await TransactionService.getByReference(
           data.reference
         );
+        console.log(transaction);
+        console.log({ status: 'successful', orderId: transaction.orderId });
+        kafkaProducer('transaction-success', {
+          value: JSON.stringify({
+            status: 'successful',
+            orderId: transaction.orderId,
+          }),
+        });
         if (transaction) {
           transaction.paid = true;
-
           await TransactionService.update(transaction);
         }
         res.sendStatus(200);

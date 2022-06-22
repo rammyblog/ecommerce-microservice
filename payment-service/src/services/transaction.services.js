@@ -11,20 +11,20 @@ const TransactionService = {
     return transactionModelRepo.find();
   },
   getById: (id) => {
-    return transactionModelRepo.findOne(id);
+    return transactionModelRepo.findOneBy(id);
   },
   getByUserId: (userId) => {
-    return transactionModelRepo.findBy({
+    return transactionModelRepo.findOneBy({
       userId,
     });
   },
   getByReference: (reference) => {
-    return transactionModelRepo.findBy({
+    return transactionModelRepo.findOneBy({
       reference,
     });
   },
   getByOrderId: (orderId) => {
-    return transactionModelRepo.findBy({
+    return transactionModelRepo.findOneBy({
       orderId,
     });
   },

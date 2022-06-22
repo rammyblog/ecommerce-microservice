@@ -8,7 +8,7 @@ const ROUTES = [
         target: 'http://localhost:3004/api/orders',
         changeOrigin: true,
         pathRewrite: {
-          [`^/api/create-orders/`]: ''
+          [`^/api/categories/`]: ''
         }
       }
     },
