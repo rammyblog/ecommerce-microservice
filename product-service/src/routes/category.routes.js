@@ -14,10 +14,9 @@ const {
 
 
 // Category routes
-router.get("/categories",getAllCategories);
-router.get("/categories/:categoryId", getACategory)
-// router.route()
+router.get("/",getAllCategories);
+router.get("/:categoryId", getACategory)
 router.post("/categories",  createCategory)
-router.delete("/categories/:categoryId", deleteCategory)
-router.patch("/categories/:categoryId",  updateCategory);
+router.delete("/:categoryId", deleteCategory)
+router.patch("/:categoryId",  updateCategory);
 export default router;

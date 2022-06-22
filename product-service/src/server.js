@@ -14,8 +14,8 @@ const port = process.env.PORT || 3001;
 
 setupLogging(app);
 
-app.use('/api/product', productRoutes);
-app.use('/api/category', categoryRoutes);
+app.use('/api/products', productRoutes);
+app.use('/api/categories', categoryRoutes);
 
 app.listen(port, () => {
   console.log(`product-service app listening at http://localhost:${port}`);
