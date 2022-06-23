@@ -12,7 +12,7 @@ export const getAllUsers = async (req, res, next) => {
   }
 };
 
-export const getSingleUser = async (req, res) => {
+export const getSingleUser = async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id);
     return SuccessResponse(res, "User retrieved successfully", users,  200)
