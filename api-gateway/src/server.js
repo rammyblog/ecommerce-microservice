@@ -7,6 +7,7 @@ import ROUTES from './proxyRoutes/index.js';
 import authRoutes from './routes/auth.routes.js';
 import userRoutes from './routes/user.routes.js';
 import setupAuth from './setupAuth.js';
+import errorHandlerMiddleware from "./middleware/errorHandlerMiddleware.js";
 import { graphqlHTTP } from 'express-graphql';
 import { GraphQLSchema } from 'graphql';
 import RootQueryType from './graphql/GraphQLQuery.js';
@@ -18,7 +19,7 @@ setupProxies(app, ROUTES);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 connectDb();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3004;
 
 setupLogging(app);
 
@@ -44,6 +45,7 @@ app.use(
     graphiql: true
   })
 );
+app.use(errorHandlerMiddleware);
 
 app.listen(port, () => {
   console.log(`api-gateway app listening at http://localhost:${port}`);
