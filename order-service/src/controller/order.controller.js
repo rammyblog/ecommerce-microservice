@@ -2,17 +2,13 @@ import OrderService from '../services/order.services.js';
 import OrderDetailService from '../services/orderDetail.services.js';
 import { createOrderValidation } from '../utils/order.validation.js';
 import fetch from "node-fetch"
+import ErrorResponse from '../utils/error.js'
+import SuccessResponse from '../utils/success.js'
 
 const validation = {
   createOrder: createOrderValidation,
 };
 
-
-
-
-
-
-  
 
 
 const handleValidation = (body, res, type) => {
@@ -23,7 +19,7 @@ const handleValidation = (body, res, type) => {
   }
 };
 
-export const createOrder = async (req, res) => {
+export const createOrder = async (req, res, next) => {
   try {
     handleValidation(req.body, res, 'createOrder');
     const productBaseUrl = `${process.env.PRODUCTMS_BASE_URL}`;
@@ -39,18 +35,9 @@ export const createOrder = async (req, res) => {
 
     const order = await OrderService.create(newOrder);
 
-
-   
-
-
-   
-
     const orderDetailsArray = [];
     cart.forEach(async (item) => {
       const url = new URL(`${productBaseUrl}/api/products/${item.productId}`);
-
-
-      // const productBaseUrl = "http://localhost:3001/api/products/${item.productId}";
       
       const options = {
         method: "GET",
@@ -79,41 +66,56 @@ export const createOrder = async (req, res) => {
 
     await OrderService.update(order);
     // send topic to payment service
-    res.status(201).json({ order });
+    return SuccessResponse(res, "Order created successfully", order,  201)
+
+    // res.status(201).json({ order });
   } catch (err) {
     console.log({ err });
-    return res.status(400).json({ error_msg: err.message });
+    return next(new ErrorResponse(err.message, 400));
+
+    // return res.status(400).json({ error_msg: err.message });
   }
 };
 
 
 
-export const getOrders = async (req, res) => {
+export const getOrders = async (req, res, next) => {
   try {
     const orders = await OrderService.getAll();
-    res.status(200).json({ orders });
+    return SuccessResponse(res, "Orders retrieved successfully", orders,  200)
+
   } catch (err) {
     console.log({ err });
-    return res.status(400).json({ error_msg: err.message });
+    return next(new ErrorResponse(err.message, 400));
+
   }
 };
 
-export const getSingleOrder = async (req, res) => {
+export const getSingleOrder = async (req, res, next) => {
   try {
     const order = await OrderService.getById(req.params.id);
-    res.status(200).json({ order });
+    // res.status(200).json({ order });
+    return SuccessResponse(res, "Order retrieved successfully", order,  200)
+
   } catch (err) {
     console.log({ err });
-    return res.status(400).json({ error_msg: err.message });
+    return next(new ErrorResponse(err.message, 400));
+
+    // return res.status(400).json({ error_msg: err.message });
   }
 };
 
-export const getUserOrders = async (req, res) => {
+export const getUserOrders = async (req, res, next) => {
   try {
     const orders = await OrderService.getByUserId(req.user.id);
-    res.status(200).json({ orders });
+    // res.status(200).json({ orders });
+    return SuccessResponse(res, "User orders retrieved successfully", orders,  200)
+
+    
   } catch (err) {
     console.log({ err });
-    return res.status(400).json({ error_msg: err.message });
+    return next(new ErrorResponse(err.message, 400));
+
+    // return res.status(400).json({ error_msg: err.message });
   }
 };

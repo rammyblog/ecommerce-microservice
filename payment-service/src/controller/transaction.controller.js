@@ -3,7 +3,8 @@ import crypto from 'crypto';
 import { initializeTransactionValidation } from '../utils/transaction.validation.js';
 import TransactionService from '../services/transaction.services.js';
 import kafkaProducer from '../worker/producer.js';
-
+import SuccessResponse from "../utils/success.js"
+import ErrorResponse from "../utils/error.js"
 const validation = {
   initializeTransaction: initializeTransactionValidation,
 };
@@ -16,7 +17,7 @@ const handleValidation = (body, res, type) => {
   }
 };
 
-export const initializeTransaction = async (req, res) => {
+export const initializeTransaction = async (req, res, next) => {
   try {
     handleValidation(req.body, res, 'initializeTransaction');
     const { amount, orderId } = req.body;
@@ -30,25 +31,31 @@ export const initializeTransaction = async (req, res) => {
     transaction.reference = paystackTransaction.data.reference;
     transaction.userId = req.user.id;
     await TransactionService.create(transaction);
-    res.status(201).json({ paystackTransaction });
+    return SuccessResponse(res, "Transaction created successfully", paystackTransaction,  201)
+
+    // res.status(201).json({ paystackTransaction });
   } catch (err) {
     console.log({ err });
-    return res.status(400).json({ error_msg: err.message });
+    return next(new ErrorResponse(err.message, 400));
+
   }
 };
 
-export const verifyTransaction = async (req, res) => {
+export const verifyTransaction = async (req, res, next) => {
   try {
     const { reference } = req.body;
     const paystackTransaction = await Paystack.verifyTransaction(reference);
-    res.status(201).json({ paystackTransaction });
+    return SuccessResponse(res, "Transaction verified successfully", paystackTransaction,  201)
+
+    // res.status(201).json({ paystackTransaction });
   } catch (err) {
     console.log({ err });
-    return res.status(400).json({ error_msg: err.message });
+    return next(new ErrorResponse(err.message, 400));
+
   }
 };
 
-export const paystackWebhook = async (req, res) => {
+export const paystackWebhook = async (req, res, next) => {
   try {
     const secret = process.env.PAYSTACK_SECRET_KEY;
     const hash = crypto
@@ -81,6 +88,7 @@ export const paystackWebhook = async (req, res) => {
     }
   } catch (error) {
     console.log(error);
-    return res.status(400).json({ error_msg: error.message });
+    return next(new ErrorResponse(error.message, 400));
+
   }
 };
