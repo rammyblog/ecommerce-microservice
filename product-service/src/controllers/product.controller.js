@@ -30,7 +30,7 @@ const product = {
       return SuccessResponse(res, "Product retrieved successfully", productCollection,  200)
 
     } catch (e) {
-        console.log(e)
+        // console.log(e)
         return next(new ErrorResponse(e.message, 500));
         }
   },
