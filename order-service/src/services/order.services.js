@@ -1,18 +1,16 @@
 import AppDataSource from '../config/datasource.js';
-import Order from '../entity/Order.js';
 import OrderModel from '../model/Order.js';
-var orderRepo = AppDataSource.getRepository('Order');
+const  orderRepo = AppDataSource.getRepository('Order');
 const orderModelRepo = AppDataSource.getRepository('OrderModel');
 const OrderService = {
   init: () => {
     return new OrderModel();
   },
   getAll: () => {
-    console.log(orderRepo);
     return orderModelRepo.find();
   },
   getById: (id) => {
-    return orderModelRepo.findOne(id);
+    return orderModelRepo.findBy({ id });
   },
   getByUserId: (userId) => {
     return orderModelRepo.findBy({
