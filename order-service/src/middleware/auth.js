@@ -1,4 +1,6 @@
 import jwt from 'jsonwebtoken';
+import ErrorResponse from "../utils/error.js"
+
 
 export default function ensureAuth(req, res, next) {
   const authHeader = req.headers.authorization;
@@ -11,6 +13,6 @@ export default function ensureAuth(req, res, next) {
     next();
   } catch (error) {
     console.log(error);
-    return res.status(400).json({ error_msg: 'invalid token' });
+    return next(new ErrorResponse(error.message, 400));
   }
 }
