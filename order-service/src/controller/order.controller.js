@@ -1,16 +1,23 @@
 import OrderService from '../services/order.services.js';
 import OrderDetailService from '../services/orderDetail.services.js';
 import { createOrderValidation } from '../utils/order.validation.js';
+<<<<<<< HEAD
+import fetch from 'node-fetch';
+=======
 import fetch from "node-fetch"
 import ErrorResponse from '../utils/error.js'
 import SuccessResponse from '../utils/success.js'
+>>>>>>> 2798636fc4f36e0f8323a7a611f7e6977f96e0a7
 
 const validation = {
   createOrder: createOrderValidation,
 };
 
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> 2798636fc4f36e0f8323a7a611f7e6977f96e0a7
 const handleValidation = (body, res, type) => {
   const { error } = validation[type](body);
   if (error) {
@@ -38,17 +45,23 @@ export const createOrder = async (req, res, next) => {
     const orderDetailsArray = [];
     cart.forEach(async (item) => {
       const url = new URL(`${productBaseUrl}/api/products/${item.productId}`);
+<<<<<<< HEAD
+
+      // const productBaseUrl = "http://localhost:3001/api/products/${item.productId}";
+
+=======
       
+>>>>>>> 2798636fc4f36e0f8323a7a611f7e6977f96e0a7
       const options = {
-        method: "GET",
+        method: 'GET',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       };
       const response = await fetch(url, options);
       const jsonResponse = await response.json();
       const data = jsonResponse.data;
-      if(data.id === item.productId && data.sellingPrice === item.price){
+      if (data.id === item.productId && data.sellingPrice === item.price) {
         item.price = parseFloat(item.price);
         item.quantity = parseInt(item.quantity);
         const newOrderDetail = OrderDetailService.init();
@@ -56,10 +69,9 @@ export const createOrder = async (req, res, next) => {
         newOrderDetail.price = item.price;
         newOrderDetail.quantity = item.quantity;
         newOrderDetail.orderId = order.id;
-  
+
         // defer the creation
         orderDetailsArray.push(OrderDetailService.create(newOrderDetail));
-
       }
     });
     order.order_details = await Promise.all(orderDetailsArray);
@@ -76,7 +88,6 @@ export const createOrder = async (req, res, next) => {
     // return res.status(400).json({ error_msg: err.message });
   }
 };
-
 
 
 export const getOrders = async (req, res, next) => {

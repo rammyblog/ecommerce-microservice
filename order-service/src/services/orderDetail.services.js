@@ -2,24 +2,24 @@ import AppDataSource from '../config/datasource.js';
 import OrderDetail from '../entity/OrderDetail.js';
 import OrderDetailModel from '../model/OrderDetail.js';
 var orderDetailRepo = AppDataSource.getRepository('OrderDetail');
-
+const orderDetailModelRepo = AppDataSource.getRepository('OrderDetailModel');
 const OrderDetailService = {
   init: () => {
     return new OrderDetailModel();
   },
   getAll: () => {
-    return AppDataSource.manager.find(OrderDetail);
+    return orderDetailModelRepo.find();
   },
   getById: (id) => {
-    return AppDataSource.manager.findOne(OrderDetail, id);
+    return orderDetailModelRepo.findBy({ id });
   },
   getByOrderID: (id) => {
-    return AppDataSource.manager.findBy(OrderDetail, {
+    return orderDetailModelRepo.findBy({
       orderId: id,
     });
   },
   create: (order) => {
-    return AppDataSource.manager.save(order);
+    return orderDetailRepo.manager.save(order);
   },
   update: (order) => {
     return orderDetailRepo.manager.save(order);
