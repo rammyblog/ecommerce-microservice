@@ -1,23 +1,14 @@
 import OrderService from '../services/order.services.js';
 import OrderDetailService from '../services/orderDetail.services.js';
 import { createOrderValidation } from '../utils/order.validation.js';
-<<<<<<< HEAD
 import fetch from 'node-fetch';
-=======
-import fetch from "node-fetch"
-import ErrorResponse from '../utils/error.js'
-import SuccessResponse from '../utils/success.js'
->>>>>>> 2798636fc4f36e0f8323a7a611f7e6977f96e0a7
+import ErrorResponse from '../utils/error.js';
+import SuccessResponse from '../utils/success.js';
 
 const validation = {
   createOrder: createOrderValidation,
 };
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 2798636fc4f36e0f8323a7a611f7e6977f96e0a7
 const handleValidation = (body, res, type) => {
   const { error } = validation[type](body);
   if (error) {
@@ -45,13 +36,7 @@ export const createOrder = async (req, res, next) => {
     const orderDetailsArray = [];
     cart.forEach(async (item) => {
       const url = new URL(`${productBaseUrl}/api/products/${item.productId}`);
-<<<<<<< HEAD
 
-      // const productBaseUrl = "http://localhost:3001/api/products/${item.productId}";
-
-=======
-      
->>>>>>> 2798636fc4f36e0f8323a7a611f7e6977f96e0a7
       const options = {
         method: 'GET',
         headers: {
@@ -78,7 +63,7 @@ export const createOrder = async (req, res, next) => {
 
     await OrderService.update(order);
     // send topic to payment service
-    return SuccessResponse(res, "Order created successfully", order,  201)
+    return SuccessResponse(res, 'Order created successfully', order, 201);
 
     // res.status(201).json({ order });
   } catch (err) {
@@ -89,16 +74,13 @@ export const createOrder = async (req, res, next) => {
   }
 };
 
-
 export const getOrders = async (req, res, next) => {
   try {
     const orders = await OrderService.getAll();
-    return SuccessResponse(res, "Orders retrieved successfully", orders,  200)
-
+    return SuccessResponse(res, 'Orders retrieved successfully', orders, 200);
   } catch (err) {
     console.log({ err });
     return next(new ErrorResponse(err.message, 400));
-
   }
 };
 
@@ -106,8 +88,7 @@ export const getSingleOrder = async (req, res, next) => {
   try {
     const order = await OrderService.getById(req.params.id);
     // res.status(200).json({ order });
-    return SuccessResponse(res, "Order retrieved successfully", order,  200)
-
+    return SuccessResponse(res, 'Order retrieved successfully', order, 200);
   } catch (err) {
     console.log({ err });
     return next(new ErrorResponse(err.message, 400));
@@ -120,9 +101,12 @@ export const getUserOrders = async (req, res, next) => {
   try {
     const orders = await OrderService.getByUserId(req.user.id);
     // res.status(200).json({ orders });
-    return SuccessResponse(res, "User orders retrieved successfully", orders,  200)
-
-    
+    return SuccessResponse(
+      res,
+      'User orders retrieved successfully',
+      orders,
+      200
+    );
   } catch (err) {
     console.log({ err });
     return next(new ErrorResponse(err.message, 400));
