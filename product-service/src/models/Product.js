@@ -1,5 +1,6 @@
 import Sequelize from 'sequelize';
 import sequelize from '../db/postgres.js';
+import Category from './Category.js';
 
 const Product = sequelize.define(
   'Products',
@@ -15,6 +16,10 @@ const Product = sequelize.define(
     },
     categoryId: {
       type: Sequelize.INTEGER,
+      references: {
+        model: 'Categories',
+        key: 'id'
+      },
       allowNull: false
     },
     sku: {
@@ -45,12 +50,5 @@ const Product = sequelize.define(
 
   { freezeTableName: true }
 );
-
-// Product.associate = function (models) {
-//   Product.belongsTo(models.Category, {
-//     onDelete: 'CASCADE',
-//     foreignKey: 'categoryId'
-//   })
-// }
 
 export default Product;
