@@ -1,3 +1,4 @@
+import NextLink from "next/link";
 import {
   Box,
   Button,
@@ -5,7 +6,7 @@ import {
   Flex,
   Heading,
   Spacer,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 
 export default function Home() {
   return (
@@ -17,7 +18,9 @@ export default function Home() {
       <Spacer />
 
       <ButtonGroup gap="2">
-        <Button colorScheme="teal">Sign Up</Button>
+        <NextLink href="/Signup" passHref>
+          <Button colorScheme="teal">Sign Up</Button>
+        </NextLink>
         <Button colorScheme="teal">Log in</Button>
       </ButtonGroup>
     </Flex>
