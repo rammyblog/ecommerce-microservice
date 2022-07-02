@@ -18,7 +18,7 @@ export default function Home() {
       <Spacer />
 
       <ButtonGroup gap="2">
-        <NextLink href="/register" passHref>
+        <NextLink href="/register" >
           <Button colorScheme="teal">Sign Up</Button>
         </NextLink>
         <Button colorScheme="teal">Log in</Button>

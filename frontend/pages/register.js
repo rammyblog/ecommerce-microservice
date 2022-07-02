@@ -26,7 +26,7 @@ export default function App() {
           <Image
             src={registerimage}
             alt="register"
-            fallbackSrc="https://via.placeholder.com/750.svg?text=Register+Image"
+            fallbacksrc="https://via.placeholder.com/750.svg?text=Register+Image"
             height={650}
             width={650}
           />
@@ -48,7 +48,7 @@ export default function App() {
                 <form onSubmit={handleSubmit}>
                   <VStack spacing={4} align="flex-start">
                     <FormControl
-                      isInvalid={!!errors.firstname && touched.firstname}
+                      isInvalid={!!errors?.firstname && touched?.firstname}
                     >
                       <FormLabel htmlFor="firstname">First name</FormLabel>
                       <Field
@@ -56,60 +56,63 @@ export default function App() {
                         id="firstname"
                         name="firstname"
                         type="text"
+                        autocomplete ="firstname"
                         variant="filled"
                         placeholder="Enter first name"
                         validate={(value) => {
                           let error;
-                          if (value.length < 3) {
+                          if (value?.length < 3) {
                             error = "First name too short";
                           }
                           return error;
                         }}
                       />
-                      <FormErrorMessage>{errors.firstname}</FormErrorMessage>
+                      <FormErrorMessage>{errors?.firstname}</FormErrorMessage>
                     </FormControl>
                     <FormControl
-                      isInvalid={!!errors.lastname && touched.lastname}
+                      isInvalid={!!errors?.lastname && touched?.lastname}
                     >
                       <FormLabel htmlFor="lastname">Last name</FormLabel>
                       <Field
                         as={Input}
                         id="lastname"
                         name="lastname"
+                        autocomplete =" lastname"
                         type="text"
                         variant="filled"
                         placeholder="Enter your last name"
                         validate={(value) => {
                           let error;
-                          if (value.length < 3) {
+                          if (value?.length < 3) {
                             error = "Last name too short";
                           }
                           return error;
                         }}
                       />
-                      <FormErrorMessage>{errors.lastname}</FormErrorMessage>
+                      <FormErrorMessage>{errors?.lastname}</FormErrorMessage>
                     </FormControl>
-                    <FormControl isInvalid={!!errors.email && touched.email}>
+                    <FormControl isInvalid={!!errors?.email && touched?.email}>
                       <FormLabel htmlFor="email">Email Address</FormLabel>
                       <Field
                         as={Input}
                         id="email"
                         name="email"
                         type="email"
+                        autocomplete ="email"
                         variant="filled"
                         placeholder="Enter your email address"
                         validate={(value) => {
                           let error;
-                          if (value.length < 6) {
+                          if (value?.length < 6) {
                             error = "Enter a valid email address";
                           }
                           return error;
                         }}
                       />
-                      <FormErrorMessage>{errors.email}</FormErrorMessage>
+                      <FormErrorMessage>{errors?.email}</FormErrorMessage>
                     </FormControl>
                     <FormControl
-                      isInvalid={!!errors.password && touched.password}
+                      isInvalid={!!errors?.password && touched?.password}
                     >
                       <FormLabel htmlFor="password">Password</FormLabel>
                       <Field
@@ -118,10 +121,11 @@ export default function App() {
                         name="password"
                         type="password"
                         variant="filled"
+                        autocomplete ="current-password"
                         placeholder="Enter your password"
                         validate={(value) => {
                           let error;
-                          if (value.length < 6) {
+                          if (value?.length < 6) {
                             error =
                               "Password must contain at least 6 characters";
                           }
@@ -129,7 +133,7 @@ export default function App() {
                           return error;
                         }}
                       />
-                      <FormErrorMessage>{errors.password}</FormErrorMessage>
+                      <FormErrorMessage>{errors?.password}</FormErrorMessage>
                     </FormControl>
                     <Button type="submit" colorScheme="purple" width="full">
                       REGISTER
@@ -143,7 +147,7 @@ export default function App() {
             Already have an account?
             <Link
               href="/login"
-              passHref
+
               textColor="purple"
               marginLeft={2}
               _hover={{ textDecoration: "underline" }}
