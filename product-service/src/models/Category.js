@@ -1,5 +1,6 @@
 import Sequelize from 'sequelize';
-import  sequelize  from '../db/postgres.js';
+import sequelize from '../db/postgres.js';
+import Product from './Product.js';
 
 const Category = sequelize.define(
   'Categories',
@@ -17,19 +18,14 @@ const Category = sequelize.define(
       type: Sequelize.TEXT,
       allowNull: false
     },
-    isActive:{
-      type:Sequelize.BOOLEAN,
-      allowNull:false,
+    isActive: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false
       // default:true
     }
   },
 
-  
   { freezeTableName: true }
 );
 
-Category.associate = function (models) {
-  Category.hasMany(models.Product, { as: 'products' });
-};
-
-export default Category
+export default Category;
