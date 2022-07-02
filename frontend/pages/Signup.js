@@ -1,6 +1,5 @@
 import registerimage from "../assets/register-image.svg";
 import Image from "next/image";
-import NextLink from "next/link";
 import { Formik, Field } from "formik";
 import {
   Box,
@@ -11,19 +10,21 @@ import {
   FormErrorMessage,
   Input,
   VStack,
-  Container,
   Text,
   Link,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 
+//...
 export default function App() {
+  const router = useRouter();
+
   return (
     <Box bg="gray.100" align="center" p={30} w="100vw">
       <Flex justify="space-around" h="93.5vh" align="center">
         <Box display={{ sm: "none", lg: "flex" }}>
           <Image
             src={registerimage}
-            // src="https://payfoodo.herokuapp.com/static/media/register.fed4c349.svg"
             alt="register"
             fallbackSrc="https://via.placeholder.com/750.svg?text=Register+Image"
             height={650}
@@ -35,49 +36,58 @@ export default function App() {
             <Formik
               initialValues={{
                 fullname: "",
-                username: "",
+                lastname: "",
                 email: "",
                 password: "",
-                Address: "",
               }}
-              onSubmit={(values) => {
-                // alert(JSON.stringify(values, null, 2));
+              onSubmit={() => {
+                router.push("/");
               }}
             >
               {({ handleSubmit, errors, touched }) => (
                 <form onSubmit={handleSubmit}>
                   <VStack spacing={4} align="flex-start">
-                    <FormControl>
-                      <FormLabel htmlFor="fullname">Full name</FormLabel>
-                      <Field
-                        as={Input}
-                        id="fullname"
-                        name="fullname"
-                        type="text"
-                        variant="filled"
-                        placeholder="Enter first name then last name"
-                      />
-                    </FormControl>
                     <FormControl
-                      isInvalid={!!errors.username && touched.username}
+                      isInvalid={!!errors.firstname && touched.firstname}
                     >
-                      <FormLabel htmlFor="username">Username</FormLabel>
+                      <FormLabel htmlFor="firstname">First name</FormLabel>
                       <Field
                         as={Input}
-                        id="username"
-                        name="username"
+                        id="firstname"
+                        name="firstname"
                         type="text"
                         variant="filled"
-                        placeholder="Enter your username"
+                        placeholder="Enter first name"
                         validate={(value) => {
                           let error;
                           if (value.length < 3) {
-                            error = "Username too short";
+                            error = "First name too short";
                           }
                           return error;
                         }}
                       />
-                      <FormErrorMessage>{errors.username}</FormErrorMessage>
+                      <FormErrorMessage>{errors.firstname}</FormErrorMessage>
+                    </FormControl>
+                    <FormControl
+                      isInvalid={!!errors.lastname && touched.lastname}
+                    >
+                      <FormLabel htmlFor="lastname">Last name</FormLabel>
+                      <Field
+                        as={Input}
+                        id="lastname"
+                        name="lastname"
+                        type="text"
+                        variant="filled"
+                        placeholder="Enter your last name"
+                        validate={(value) => {
+                          let error;
+                          if (value.length < 3) {
+                            error = "Last name too short";
+                          }
+                          return error;
+                        }}
+                      />
+                      <FormErrorMessage>{errors.lastname}</FormErrorMessage>
                     </FormControl>
                     <FormControl isInvalid={!!errors.email && touched.email}>
                       <FormLabel htmlFor="email">Email Address</FormLabel>
@@ -90,10 +100,7 @@ export default function App() {
                         placeholder="Enter your email address"
                         validate={(value) => {
                           let error;
-                          if (
-                            value.indexOf("@") === -1 &&
-                            value.indexOf(".com") === -1
-                          ) {
+                          if (value.length < 6) {
                             error = "Enter a valid email address";
                           }
                           return error;
@@ -111,14 +118,12 @@ export default function App() {
                         name="password"
                         type="password"
                         variant="filled"
-                        placeholder="Enter password of 6 characters"
+                        placeholder="Enter your password"
                         validate={(value) => {
                           let error;
-                          var passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
-
-                          if (value.length < 5 && !value.match(passw)) {
+                          if (value.length < 6) {
                             error =
-                              "Password must contain at least 6 characters, 1 uppercase, 1 lowercase and 1 number";
+                              "Password must contain at least 6 characters";
                           }
 
                           return error;
@@ -126,18 +131,6 @@ export default function App() {
                       />
                       <FormErrorMessage>{errors.password}</FormErrorMessage>
                     </FormControl>
-                    <FormControl>
-                      <FormLabel htmlFor="address">Address</FormLabel>
-                      <Field
-                        as={Input}
-                        id="address"
-                        name="address"
-                        type="text"
-                        variant="filled"
-                        placeholder="Enter your home address"
-                      />
-                    </FormControl>
-
                     <Button type="submit" colorScheme="purple" width="full">
                       REGISTER
                     </Button>
@@ -155,7 +148,7 @@ export default function App() {
               marginLeft={2}
               _hover={{ textDecoration: "underline" }}
             >
-            Login
+              Login
             </Link>
           </Text>
         </Box>
