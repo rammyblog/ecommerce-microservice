@@ -974,6 +974,7 @@
     "glob" "7.1.7"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 "@next/swc-win32-x64-msvc@12.2.0":
   "integrity" "sha512-OI14ozFLThEV3ey6jE47zrzSTV/6eIMsvbwozo+XfdWqOPwQ7X00YkRx4GVMKMC0rM44oGS2gmwMKYpe4EblnA=="
   "resolved" "https://registry.npmjs.org/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-12.2.0.tgz"
@@ -982,6 +983,11 @@
   "integrity" "sha512-8A26RJVcJHwIKm8xo/qk2ePRquJ6WCI2keV2qOW/Qm+ZXrPXHMIWPYABae/nKN243YFBNyPiHytjX37VrcpUhg=="
   "resolved" "https://registry.npmjs.org/@next/swc-win32-ia32-msvc/-/swc-win32-ia32-msvc-12.2.0.tgz"
 >>>>>>> b0728ba (design login page)
+=======
+"@next/swc-win32-ia32-msvc@12.2.0":
+  "integrity" "sha512-8A26RJVcJHwIKm8xo/qk2ePRquJ6WCI2keV2qOW/Qm+ZXrPXHMIWPYABae/nKN243YFBNyPiHytjX37VrcpUhg=="
+  "resolved" "https://registry.npmjs.org/@next/swc-win32-ia32-msvc/-/swc-win32-ia32-msvc-12.2.0.tgz"
+>>>>>>> b0728ba5d5150d656c9ff9dc4a67808c66c83bb9
   "version" "12.2.0"
 
 "@nodelib/fs.scandir@2.1.5":
