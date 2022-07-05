@@ -1,28 +1,29 @@
-import NextLink from "next/link";
-import {
-  Box,
-  Button,
-  ButtonGroup,
-  Flex,
-  Heading,
-  Spacer,
-} from "@chakra-ui/react";
+import { SimpleGrid } from '@chakra-ui/react';
+import SingleProduct from '../components/Products/SingleProduct';
+import getStore from '../store';
+import { getProducts } from '../store/products/actions';
 
-export default function Home() {
+export default function Home({ initialState }) {
+  const { products } = initialState;
+
   return (
-    <Flex minWidth="max-content" alignItems="center" gap="2">
-      <Box p="2">
-        <Heading size="md">Chakra App</Heading>
-      </Box>
-
-      <Spacer />
-
-      <ButtonGroup gap="2">
-        <NextLink href="/register" >
-          <Button colorScheme="teal">Sign Up</Button>
-        </NextLink>
-        <Button colorScheme="teal">Log in</Button>
-      </ButtonGroup>
-    </Flex>
+    <>
+        <SimpleGrid minChildWidth="250px" spacing="40px">
+          {products.products.map((product) => (
+            <SingleProduct product={product} key={product.id} />
+          ))}
+        </SimpleGrid>
+    </>
   );
+}
+
+export async function getServerSideProps() {
+  const store = getStore();
+
+  await store.dispatch(getProducts());
+  return {
+    props: {
+      initialState: store.getState(),
+    },
+  };
 }

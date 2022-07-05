@@ -373,6 +373,14 @@
   dependencies:
     "@chakra-ui/utils" "2.0.2"
 
+"@chakra-ui/icons@^2.0.2":
+  "integrity" "sha512-UY7vP8E5pv2a4sd1SiezgVbmq1/tRfnehk6PatunrTvGMxQNhSKJJoiRI/wCtUfMoMz+yp9+ekc1ksJVCnokRg=="
+  "resolved" "https://registry.npmjs.org/@chakra-ui/icons/-/icons-2.0.2.tgz"
+  "version" "2.0.2"
+  dependencies:
+    "@chakra-ui/icon" "3.0.2"
+    "@types/react" "^18.0.1"
+
 "@chakra-ui/image@2.0.3":
   "integrity" "sha512-GLMJXLdR0y7CCZ0hKHf6YZLb8dlPpx4vdXWTbtLnIU5EfGIOSiCU4N3+0KcjvMtDB69hBr5W4h1XMJNpetP1EA=="
   "resolved" "https://registry.npmjs.org/@chakra-ui/image/-/image-2.0.3.tgz"
@@ -973,21 +981,9 @@
   dependencies:
     "glob" "7.1.7"
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-"@next/swc-win32-x64-msvc@12.2.0":
-  "integrity" "sha512-OI14ozFLThEV3ey6jE47zrzSTV/6eIMsvbwozo+XfdWqOPwQ7X00YkRx4GVMKMC0rM44oGS2gmwMKYpe4EblnA=="
-  "resolved" "https://registry.npmjs.org/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-12.2.0.tgz"
-=======
-"@next/swc-win32-ia32-msvc@12.2.0":
-  "integrity" "sha512-8A26RJVcJHwIKm8xo/qk2ePRquJ6WCI2keV2qOW/Qm+ZXrPXHMIWPYABae/nKN243YFBNyPiHytjX37VrcpUhg=="
-  "resolved" "https://registry.npmjs.org/@next/swc-win32-ia32-msvc/-/swc-win32-ia32-msvc-12.2.0.tgz"
->>>>>>> b0728ba (design login page)
-=======
-"@next/swc-win32-ia32-msvc@12.2.0":
-  "integrity" "sha512-8A26RJVcJHwIKm8xo/qk2ePRquJ6WCI2keV2qOW/Qm+ZXrPXHMIWPYABae/nKN243YFBNyPiHytjX37VrcpUhg=="
-  "resolved" "https://registry.npmjs.org/@next/swc-win32-ia32-msvc/-/swc-win32-ia32-msvc-12.2.0.tgz"
->>>>>>> b0728ba5d5150d656c9ff9dc4a67808c66c83bb9
+"@next/swc-darwin-arm64@12.2.0":
+  "integrity" "sha512-x5U5gJd7ZvrEtTFnBld9O2bUlX8opu7mIQUqRzj7KeWzBwPhrIzTTsQXAiNqsaMuaRPvyHBVW/5d/6g6+89Y8g=="
+  "resolved" "https://registry.npmjs.org/@next/swc-darwin-arm64/-/swc-darwin-arm64-12.2.0.tgz"
   "version" "12.2.0"
 
 "@nodelib/fs.scandir@2.1.5":
@@ -1090,7 +1086,7 @@
   "resolved" "https://registry.npmjs.org/@types/prop-types/-/prop-types-15.7.5.tgz"
   "version" "15.7.5"
 
-"@types/react@*", "@types/react@^16.8 || ^17.0 || ^18.0", "@types/react@^16.8.0 || ^17.0.0 || ^18.0.0", "@types/react@^16.9.0 || ^17.0.0 || ^18.0.0":
+"@types/react@*", "@types/react@^16.8 || ^17.0 || ^18.0", "@types/react@^16.8.0 || ^17.0.0 || ^18.0.0", "@types/react@^16.9.0 || ^17.0.0 || ^18.0.0", "@types/react@^18.0.1":
   "integrity" "sha512-x4gGuASSiWmo0xjDLpm5mPb52syZHJx02VKbqUKdLmKtAwIh63XClGsiTI1K6DO5q7ox4xAsQrU+Gl3+gGXF9Q=="
   "resolved" "https://registry.npmjs.org/@types/react/-/react-18.0.14.tgz"
   "version" "18.0.14"

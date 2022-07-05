@@ -1,14 +1,17 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import productReducer from './productSlice';
-import { createWrapper } from 'next-redux-wrapper';
+import products from './products/productSlice';
 
 const combinedReducer = combineReducers({
-  productReducer,
+  products,
 });
 
-export const makeStore = () =>
-  configureStore({
-    reducer: combinedReducer,
-  });
+export let store = null;
 
-export const wrapper = createWrapper(makeStore, { debug: true });
+export default function getStore(incomingPreloadState) {
+  store = configureStore({
+    reducer: combinedReducer,
+    preloadedState: incomingPreloadState,
+    devTools: true,
+  });
+  return store;
+}

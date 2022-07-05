@@ -1,12 +1,20 @@
-import { ChakraProvider } from '@chakra-ui/react';
-import { wrapper } from '../store';
+import { ChakraProvider, Container } from '@chakra-ui/react';
+import { Provider } from 'react-redux';
+import Navbar from '../components/Navbar';
+import getStore from '../store';
 
-function App({ Component, pageProps }) {
+function MyApp({ Component, pageProps }) {
+  const store = getStore(pageProps.initialState);
   return (
-    <ChakraProvider>
-      <Component {...pageProps} />
-    </ChakraProvider>
+    <Provider store={store}>
+      <ChakraProvider>
+        <Navbar />
+        <Container maxW="container.xl" minHeight="80vh">
+          <Component {...pageProps} />
+        </Container>
+      </ChakraProvider>
+    </Provider>
   );
 }
 
-export default wrapper.withRedux(App);
+export default MyApp;

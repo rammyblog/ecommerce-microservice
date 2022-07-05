@@ -45,6 +45,10 @@ const Product = sequelize.define(
     isActive: {
       type: Sequelize.BOOLEAN,
       default: true
+    },
+    image: {
+      type: Sequelize.TEXT,
+      allowNull: true
     }
   },
 
