@@ -8,4 +8,4 @@ RUN npm i
 RUN chown -R app /opt/app
 USER app
 EXPOSE 3000
-CMD npm run dev
+CMD [ "npm", "start" ]

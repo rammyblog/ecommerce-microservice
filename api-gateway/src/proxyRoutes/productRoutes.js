@@ -5,7 +5,7 @@ const ROUTES = [
     url: '/api/products/',
     auth: false,
     proxy: {
-      target: 'http://product-service:3001/api/products',
+      target: 'http://localhost:3001/api/products',
       changeOrigin: true,
       pathRewrite: {
         [`^/api/products/`]: ''
@@ -16,7 +16,7 @@ const ROUTES = [
     url: '/api/products/:productId',
     auth: false,
     proxy: {
-      target: 'http://product-service:3001/api/products/:productId',
+      target: 'http://localhost:3001/api/products/:productId',
       changeOrigin: true,
       pathRewrite: {
         [`^/api/products/:id`]: ''
