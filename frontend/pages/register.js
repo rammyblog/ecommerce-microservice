@@ -1,6 +1,9 @@
-import registerimage from '../assets/register-image.svg';
-import Image from 'next/image';
-import { Formik, Field } from 'formik';
+import axios from "axios";
+import { Heading, useToast } from "@chakra-ui/react";
+import Image from "next/image";
+import registerimage from "../assets/register-image.svg";
+import { useRouter } from "next/router";
+import { Formik, Field } from "formik";
 import {
   Box,
   Button,
@@ -12,17 +15,33 @@ import {
   VStack,
   Text,
   Link,
-} from '@chakra-ui/react';
-import { useRouter } from 'next/router';
+  Container,
+} from "@chakra-ui/react";
+import { register } from "../store/products/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
-//...
 export default function App() {
+  const toast = useToast();
   const router = useRouter();
-
+  const dispatch = useDispatch();
+  const { pending, error, user } = useSelector((state) => state.user);
+  console.log(user);
+  useEffect(() => {
+    if (error) {
+      toast({
+        title: "Error",
+        description: error.message,
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
+    }
+  }, [error]);
   return (
-    <Box bg="gray.100" align="center" p={30} w="100vw">
-      <Flex justify="space-around" h="93.5vh" align="center">
-        <Box display={{ sm: 'none', lg: 'flex' }}>
+    <Container maxW="100vw"  textAlign="center">
+      <Flex align="center" justify="space-around" h="87vh">
+        <Box display={{ sm: "none", lg: "flex" }}>
           <Image
             src={registerimage}
             alt="register"
@@ -31,24 +50,29 @@ export default function App() {
             width={650}
           />
         </Box>
-        <Box width={{ sm: 'full', lg: '30%' }}>
+        <Box width={{ sm: "full", lg: "30%" }}>
           <Box bg="white" p={6} rounded="md" width="100%">
             <Formik
               initialValues={{
-                fullName: '',
-                lastName: '',
-                email: '',
-                password: '',
+                firstName: "",
+                lastName: "",
+                email: "",
+                password: "",
               }}
-              onSubmit={() => {
-                router.push('/');
+              onSubmit={(initialValues) => {
+                const post = initialValues;
+                dispatch(register(post));
+                router.route("/login")
               }}
             >
               {({ handleSubmit, errors, touched }) => (
                 <form onSubmit={handleSubmit}>
                   <VStack spacing={4} align="flex-start">
+                    <Heading size="md" textColor="purple.800" cursor="pointer">
+                      Create a new account
+                    </Heading>
                     <FormControl
-                      isInvalid={!!errors?.firstname && touched?.firstname}
+                      isInvalid={!!errors?.firstName && touched?.firstName}
                     >
                       <FormLabel htmlFor="firstName">First name</FormLabel>
                       <Field
@@ -56,13 +80,13 @@ export default function App() {
                         id="firstName"
                         name="firstName"
                         type="text"
-                        autocomplete="firstName"
+                        autoComplete="firstName"
                         variant="filled"
                         placeholder="Enter first name"
                         validate={(value) => {
                           let error;
                           if (value?.length < 3) {
-                            error = 'First name too short';
+                            error = "First name too short";
                           }
                           return error;
                         }}
@@ -77,14 +101,14 @@ export default function App() {
                         as={Input}
                         id="lastName"
                         name="lastName"
-                        autocomplete=" lastName"
+                        autoComplete=" lastName"
                         type="text"
                         variant="filled"
                         placeholder="Enter your last name"
                         validate={(value) => {
                           let error;
                           if (value?.length < 3) {
-                            error = 'Last name too short';
+                            error = "Last name too short";
                           }
                           return error;
                         }}
@@ -98,13 +122,13 @@ export default function App() {
                         id="email"
                         name="email"
                         type="email"
-                        autocomplete="email"
+                        autoComplete="email"
                         variant="filled"
                         placeholder="Enter your email address"
                         validate={(value) => {
                           let error;
                           if (value?.length < 6) {
-                            error = 'Enter a valid email address';
+                            error = "Enter a valid email address";
                           }
                           return error;
                         }}
@@ -121,13 +145,13 @@ export default function App() {
                         name="password"
                         type="password"
                         variant="filled"
-                        autocomplete="current-password"
+                        autoComplete="current-password"
                         placeholder="Enter your password"
                         validate={(value) => {
                           let error;
                           if (value?.length < 6) {
                             error =
-                              'Password must contain at least 6 characters';
+                              "Password must contain at least 6 characters";
                           }
 
                           return error;
@@ -135,27 +159,27 @@ export default function App() {
                       />
                       <FormErrorMessage>{errors?.password}</FormErrorMessage>
                     </FormControl>
-                    <Button type="submit" colorScheme="purple" width="full">
-                      REGISTER
+                    <Button type="submit" colorScheme="purple" width="full" >
+                      { pending ? "Loading..." :"REGISTER"}
                     </Button>
                   </VStack>
                 </form>
               )}
             </Formik>
           </Box>
-          <Text marginTop={5}>
+          <Text marginTop={3}>
             Already have an account?
             <Link
               href="/login"
               textColor="purple"
               marginLeft={2}
-              _hover={{ textDecoration: 'underline' }}
+              _hover={{ textDecoration: "underline" }}
             >
               Login
             </Link>
           </Text>
         </Box>
       </Flex>
-    </Box>
+    </Container>
   );
 }

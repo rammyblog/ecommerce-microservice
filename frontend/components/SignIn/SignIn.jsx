@@ -1,4 +1,4 @@
-import { Formik, Form } from "formik";
+import { Formik, Form, Field } from "formik";
 import Link from "next/link";
 import CustomInput from "../customInput/CustomInput";
 import Joi from 'joi';
@@ -13,7 +13,6 @@ import {
   Heading,
   Text,
 } from "@chakra-ui/react";
-
 
 const SignIn = () => {
   return (
@@ -54,15 +53,15 @@ const SignIn = () => {
                   name="password"
                   type="password"
                   placeholder="Enter Password"
-                  validate={(value) => {
-                    let error;
-                    if (value.length < 6) {
-                      error =
-                        "Password must contain at least 6 characters";
-                    }
+                  // validate={(value) => {
+                  //   let error;
+                  //   if (value.length < 6) {
+                  //     error =
+                  //       "Password must contain at least 6 characters";
+                  //   }
 
-                    return error;
-                  }}
+                  //   return error;
+                  // }}
                 />
                 <FormErrorMessage>{errors.password}</FormErrorMessage>
                 </FormControl>

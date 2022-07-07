@@ -1,12 +1,12 @@
 import { AddIcon } from '@chakra-ui/icons';
-import { Badge, Box, Button, Flex, Image, Text } from '@chakra-ui/react';
+import { Badge, Box, Button, Container, Flex, Image, Text } from '@chakra-ui/react';
 import Link from 'next/link';
 
 export default function SingleProduct({ product }) {
   const { image, name, sellingPrice, costPrice, category } = product;
 
   return (
-    <>
+    <Container>
       <Box maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden">
         <Image
           src={image}
@@ -47,6 +47,6 @@ export default function SingleProduct({ product }) {
           </Box>
         </Box>
       </Box>
-    </>
+    </Container>
   );
 }

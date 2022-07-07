@@ -5,24 +5,36 @@ import {
   Flex,
   Heading,
   Spacer,
-} from '@chakra-ui/react';
-import React from 'react';
-import NextLink from 'next/link';
+} from "@chakra-ui/react";
+import React from "react";
+import NextLink from "next/link";
 
 function Navbar() {
   return (
-    <Flex minWidth="max-content" alignItems="center" gap="2">
+    <Flex
+      minWidth="max-content"
+      alignItems="center"
+      gap="2"
+      paddingX="1em"
+      paddingY="2em"
+    >
       <Box p="2">
-        <Heading size="md">Chakra App</Heading>
+        <NextLink href="/">
+          <Heading size="lg" textColor="purple.800" cursor="pointer">
+            Chakra App
+          </Heading>
+        </NextLink>
       </Box>
 
       <Spacer />
 
-      <ButtonGroup gap="2">
+      <ButtonGroup gap="4">
         <NextLink href="/register">
-          <Button colorScheme="teal">Sign Up</Button>
+          <Button colorScheme="purple">Sign Up</Button>
         </NextLink>
-        <Button colorScheme="teal">Log in</Button>
+        <NextLink href="/login">
+          <Button colorScheme="purple">Log in</Button>
+        </NextLink>
       </ButtonGroup>
     </Flex>
   );
