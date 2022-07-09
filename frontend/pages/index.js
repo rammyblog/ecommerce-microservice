@@ -8,11 +8,11 @@ export default function Home({ initialState }) {
 
   return (
     <>
-        <SimpleGrid minChildWidth="250px" spacing="40px">
-          {products.products.map((product) => (
-            <SingleProduct product={product} key={product.id} />
-          ))}
-        </SimpleGrid>
+      <SimpleGrid minChildWidth="250px" spacing="40px">
+        {products.products.map((product) => (
+          <SingleProduct product={product} key={product.id} />
+        ))}
+      </SimpleGrid>
     </>
   );
 }

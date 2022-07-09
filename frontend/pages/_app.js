@@ -1,3 +1,5 @@
+// When I have time, I am going to rip off redux, For some things, seems like we don't need it
+
 import { ChakraProvider, Container } from '@chakra-ui/react';
 import { Provider } from 'react-redux';
 import Navbar from '../components/Navbar';
