@@ -1,9 +1,10 @@
 import { AddIcon } from '@chakra-ui/icons';
 import { Badge, Box, Button, Flex, Image, Text } from '@chakra-ui/react';
 import Link from 'next/link';
+import { FALLBACK_IMAGE } from '../../constants';
 
 export default function SingleProduct({ product }) {
-  const { image, name, sellingPrice, costPrice, category } = product;
+  const { image, name, sellingPrice, costPrice, category, id } = product;
 
   return (
     <>
@@ -11,15 +12,18 @@ export default function SingleProduct({ product }) {
         <Image
           src={image}
           alt={name}
-          fallbackSrc="https://bitsofco.de/content/images/2018/12/broken-1.png"
-          boxSize="300px"
+          fallbackSrc={FALLBACK_IMAGE}
+          boxSize={{ lg: '300px', md: '300px', sm: '100%' }}
           objectFit="cover"
+          width={'100%'}
         />
 
         <Box p="6">
           <Box mt="1" fontWeight="semibold" as="h4" lineHeight="tight">
             <Flex justifyContent="space-between">
-              <Text>{name}</Text>
+              <Link href={`/product/${id}`} style={{ cursor: 'pointer' }}>
+                {name}
+              </Link>
               <Badge colorScheme="green">
                 <Link href="#">{category.name}</Link>
               </Badge>
