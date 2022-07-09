@@ -2,7 +2,7 @@ import ErrorPage from 'next/error';
 import getStore from '../../store';
 import { getSingleProduct } from '../../store/products/actions';
 
-import SingleProductDetail from '../../components/SingleProductDetail';
+import SingleProductDetail from '../../components/SingleProductDetail/Index';
 
 const ProductDetail = ({ initialState }) => {
   const { products } = initialState;
