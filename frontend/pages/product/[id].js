@@ -1,6 +1,8 @@
+import ErrorPage from 'next/error';
 import getStore from '../../store';
 import { getSingleProduct } from '../../store/products/actions';
-import ErrorPage from 'next/error';
+
+import SingleProductDetail from '../../components/SingleProductDetail';
 
 const ProductDetail = ({ initialState }) => {
   const { products } = initialState;
@@ -11,7 +13,11 @@ const ProductDetail = ({ initialState }) => {
   if (error || !product) {
     return <ErrorPage statusCode={404} withDarkMode={false} />;
   }
-  return <div>{product.name}</div>;
+  return (
+    <>
+      <SingleProductDetail product={product} />
+    </>
+  );
 };
 
 export async function getServerSideProps(ctx) {
