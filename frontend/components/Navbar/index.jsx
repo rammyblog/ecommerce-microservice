@@ -20,7 +20,7 @@ function Navbar() {
     >
       <Box p="2">
         <NextLink href="/">
-          <Heading size="lg" textColor="purple.800" cursor="pointer">
+          <Heading size="lg" textColor="purple.500" cursor="pointer">
             Chakra App
           </Heading>
         </NextLink>

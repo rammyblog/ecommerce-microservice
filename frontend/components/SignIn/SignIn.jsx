@@ -29,9 +29,9 @@ const SignIn = () => {
         >
           {({ handleSubmit, errors, touched }) => (
             <VStack spacing={5} align={["center", "center", "flex-start"]}>
-              <Heading color="black">Welcome Back</Heading>
+              <Heading color="purple.500" size="md">Welcome Back</Heading>
               <Form onSubmit={handleSubmit}>
-                <FormControl isInvalid={!!errors.email && touched.email}>
+                <FormControl isInvalid={!!errors.email && touched.email} marginBottom="1em">
                   <CustomInput
                     label="Email Address"
                     name="email"
@@ -47,7 +47,7 @@ const SignIn = () => {
                   />
                   <FormErrorMessage>{errors.email}</FormErrorMessage>
                 </FormControl>
-                <FormControl isInvalid={!!errors.password && touched.password}>
+                <FormControl isInvalid={!!errors.password && touched.password} marginBottom="1em">
                   <CustomInput
                     label="Enter Password"
                     name="password"

@@ -39,8 +39,8 @@ export default function App() {
   }, [error]);
   return (
     <Container maxW="100vw" textAlign="center">
-      <Flex align="center" justify="space-around" height="80vh">
-        <Box display={{ sm: "none", lg: "flex" }}>
+      <Flex align="center" justify="space-between" height="80vh">
+        <Box display={{ sm: "none", lg: "flex" }} width={{ lg: "45%" }}>
           <Image
             src={registerimage}
             alt="register"
@@ -49,7 +49,7 @@ export default function App() {
             width={650}
           />
         </Box>
-        <Box width={{ sm: "full", lg: "30%" }}>
+        <Box width={{ sm: "full", lg: "40%" }}>
           <Box bg="white" p={6} rounded="md" width="100%" boxShadow="red">
             <Formik
               initialValues={{
@@ -66,9 +66,12 @@ export default function App() {
             >
               {({ handleSubmit, errors, touched }) => (
                 <form onSubmit={handleSubmit}>
-                  <VStack spacing={4} align="flex-start">
-                    <Heading size="md" textColor="purple.800" cursor="pointer">
-                      Create a new account
+                  <VStack
+                    spacing={4}
+                    align={{ sm: "center", lg: "flex-start" }}
+                  >
+                    <Heading size="lg" textColor="purple.500" cursor="pointer">
+                      Create a New Account
                     </Heading>
                     <FormControl
                       isInvalid={!!errors?.firstName && touched?.firstName}
@@ -155,10 +158,16 @@ export default function App() {
 
                           return error;
                         }}
+                        
                       />
                       <FormErrorMessage>{errors?.password}</FormErrorMessage>
                     </FormControl>
-                    <Button type="submit" colorScheme="purple" width="full" disabled={pending}>
+                    <Button
+                      type="submit"
+                      colorScheme="purple"
+                      width="full"
+                      disabled={pending}
+                    >
                       {pending ? "Loading..." : "REGISTER"}
                     </Button>
                   </VStack>

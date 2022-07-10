@@ -1,16 +1,17 @@
+import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
+import { graphqlHTTP } from 'express-graphql';
+import { GraphQLSchema } from 'graphql';
 import connectDb from './db/index.js';
+import RootQueryType from './graphql/GraphQLQuery.js';
 import setupLogging from './logging.js';
+import errorHandlerMiddleware from './middleware/errorHandlerMiddleware.js';
 import setupProxies from './proxy.js';
 import ROUTES from './proxyRoutes/index.js';
 import authRoutes from './routes/auth.routes.js';
 import userRoutes from './routes/user.routes.js';
 import setupAuth from './setupAuth.js';
-import errorHandlerMiddleware from "./middleware/errorHandlerMiddleware.js";
-import { graphqlHTTP } from 'express-graphql';
-import { GraphQLSchema } from 'graphql';
-import RootQueryType from './graphql/GraphQLQuery.js';
 
 dotenv.config();
 const app = express();
@@ -18,6 +19,7 @@ setupAuth(app, ROUTES);
 setupProxies(app, ROUTES);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 connectDb();
 const port = process.env.PORT || 3004;
 
