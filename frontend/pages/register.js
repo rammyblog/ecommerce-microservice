@@ -1,7 +1,9 @@
-import axios from "axios";
-import { Heading, useToast } from "@chakra-ui/react";
-import Image from "next/image";
 import registerimage from "../assets/register-image.svg";
+import Image from "next/image";
+import { Heading, useToast } from "@chakra-ui/react";
+import { register } from "../store/auth/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { Formik, Field } from "formik";
 import {
@@ -17,30 +19,27 @@ import {
   Link,
   Container,
 } from "@chakra-ui/react";
-import { register } from "../store/products/actions";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
 
 export default function App() {
   const toast = useToast();
   const router = useRouter();
   const dispatch = useDispatch();
   const { pending, error, user } = useSelector((state) => state.user);
-  console.log(user);
   useEffect(() => {
     if (error) {
       toast({
         title: "Error",
-        description: error.message,
+        description:
+          "Something is wrong, make sure you have a good connection and try again.",
         status: "error",
-        duration: 9000,
+        duration: 6000,
         isClosable: true,
       });
     }
   }, [error]);
   return (
-    <Container maxW="100vw"  textAlign="center">
-      <Flex align="center" justify="space-around" h="87vh">
+    <Container maxW="100vw" textAlign="center">
+      <Flex align="center" justify="space-around" height="80vh">
         <Box display={{ sm: "none", lg: "flex" }}>
           <Image
             src={registerimage}
@@ -51,7 +50,7 @@ export default function App() {
           />
         </Box>
         <Box width={{ sm: "full", lg: "30%" }}>
-          <Box bg="white" p={6} rounded="md" width="100%">
+          <Box bg="white" p={6} rounded="md" width="100%" boxShadow="red">
             <Formik
               initialValues={{
                 firstName: "",
@@ -62,7 +61,7 @@ export default function App() {
               onSubmit={(initialValues) => {
                 const post = initialValues;
                 dispatch(register(post));
-                router.route("/login")
+                router.route = "/login";
               }}
             >
               {({ handleSubmit, errors, touched }) => (
@@ -159,8 +158,8 @@ export default function App() {
                       />
                       <FormErrorMessage>{errors?.password}</FormErrorMessage>
                     </FormControl>
-                    <Button type="submit" colorScheme="purple" width="full" >
-                      { pending ? "Loading..." :"REGISTER"}
+                    <Button type="submit" colorScheme="purple" width="full" disabled={pending}>
+                      {pending ? "Loading..." : "REGISTER"}
                     </Button>
                   </VStack>
                 </form>

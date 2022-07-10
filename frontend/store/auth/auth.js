@@ -1,6 +1,6 @@
 
 import { createSlice } from "@reduxjs/toolkit";
-import { register } from "../products/actions";
+import { register } from "./actions";
 
 const initialState = {
   user: {},

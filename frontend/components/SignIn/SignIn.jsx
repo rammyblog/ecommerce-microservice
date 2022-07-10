@@ -1,7 +1,7 @@
 import { Formik, Form, Field } from "formik";
 import Link from "next/link";
 import CustomInput from "../customInput/CustomInput";
-import Joi from 'joi';
+import Joi from "joi";
 import {
   Box,
   Flex,
@@ -25,7 +25,8 @@ const SignIn = () => {
           initialValues={{ email: "", password: "" }}
           onSubmit={(values) => {
             alert(JSON.stringify(values, null, 2));
-          }}>
+          }}
+        >
           {({ handleSubmit, errors, touched }) => (
             <VStack spacing={5} align={["center", "center", "flex-start"]}>
               <Heading color="black">Welcome Back</Heading>
@@ -36,48 +37,43 @@ const SignIn = () => {
                     name="email"
                     type="text"
                     placeholder="Enter Email address"
-                    validate={(value) => {
-                        let error;
-                        if (value.length < 6) {
-                          error = "Enter a valid email address";
-                        }
-                        return error;
-                      }}
-
+                    // validate={(value) => {
+                    //     let error;
+                    //     if (value.length < 6) {
+                    //       error = "Enter a valid email address";
+                    //     }
+                    //     return error;
+                    //   }}
                   />
                   <FormErrorMessage>{errors.email}</FormErrorMessage>
                 </FormControl>
-                <FormControl  isInvalid={!!errors.password && touched.password}>
-                <CustomInput
-                  label="Enter Password"
-                  name="password"
-                  type="password"
-                  placeholder="Enter Password"
-                  // validate={(value) => {
-                  //   let error;
-                  //   if (value.length < 6) {
-                  //     error =
-                  //       "Password must contain at least 6 characters";
-                  //   }
+                <FormControl isInvalid={!!errors.password && touched.password}>
+                  <CustomInput
+                    label="Enter Password"
+                    name="password"
+                    type="password"
+                    placeholder="Enter Password"
+                    // validate={(value) => {
+                    //   let error;
+                    //   if (value.length < 6) {
+                    //     error =
+                    //       "Password must contain at least 6 characters";
+                    //   }
 
-                  //   return error;
-                  // }}
-                />
-                <FormErrorMessage>{errors.password}</FormErrorMessage>
+                    //   return error;
+                    // }}
+                  />
+                  <FormErrorMessage>{errors.password}</FormErrorMessage>
                 </FormControl>
-                
               </Form>
               <Button type="submit" colorScheme="purple" w="full">
                 Login
               </Button>
-              <Box  w="full" display='flex' justifyContent='center'>
+              <Box w="full" display="flex" justifyContent="center">
                 Don't have an account?
-                <Text  color="purple" ml={2}>
-                <Link href="/signup">
-                  Signup
-                </Link>
+                <Text color="purple" ml={2}>
+                  <Link href="/register">Signup</Link>
                 </Text>
-  
               </Box>
             </VStack>
           )}
