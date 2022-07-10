@@ -5,19 +5,13 @@ import {
   Flex,
   Heading,
   Spacer,
-} from "@chakra-ui/react";
-import React from "react";
-import NextLink from "next/link";
+} from '@chakra-ui/react';
+import React from 'react';
+import NextLink from 'next/link';
 
 function Navbar() {
   return (
-    <Flex
-      minWidth="max-content"
-      alignItems="center"
-      gap="2"
-      paddingX="1em"
-      paddingY="2em"
-    >
+    <Flex>
       <Box p="2">
         <NextLink href="/">
           <Heading size="lg" textColor="purple.500" cursor="pointer">

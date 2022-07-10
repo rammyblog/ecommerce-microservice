@@ -1,15 +1,16 @@
-
-import { createSlice } from "@reduxjs/toolkit";
-import { register } from "./actions";
+import { createSlice } from '@reduxjs/toolkit';
+import { register } from './actions';
 
 const initialState = {
-  user: {},
+  user: null,
   pending: false,
   error: false,
+  errorMessage: null,
+  success: null,
 };
 
 export const authSlice = createSlice({
-  name: "user",
+  name: 'user',
   initialState,
   reducers: {
     register: (state, action) => {
@@ -21,6 +22,7 @@ export const authSlice = createSlice({
       .addCase(register.pending, (state) => {
         state.pending = true;
         state.error = false;
+        state.errorMessage = null;
       })
       .addCase(register.fulfilled, (state, { payload }) => {
         state.pending = false;
@@ -29,6 +31,7 @@ export const authSlice = createSlice({
       .addCase(register.rejected, (state, action) => {
         state.pending = false;
         state.error = true;
+        state.errorMessage = action.error.message;
       });
   },
 });
