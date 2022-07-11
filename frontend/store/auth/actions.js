@@ -19,3 +19,19 @@ export const register = createAsyncThunk(
     }
   }
 );
+
+export const login = createAsyncThunk(
+  'auth/login',
+  async ({ email, password }) => {
+    try {
+      const { data } = await axios.post(`${BASE_URL}api/auth/login`, {
+        email,
+        password,
+      });
+      return data;
+    } catch (error) {
+      throw error.response.data;
+    }
+  }
+);
+

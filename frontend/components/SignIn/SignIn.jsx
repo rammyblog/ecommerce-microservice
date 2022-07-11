@@ -1,7 +1,8 @@
 import { Formik, Form, Field } from 'formik';
 import Link from 'next/link';
+import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 import CustomInput from '../customInput/CustomInput';
-import Joi from 'joi';
 import {
   Box,
   Flex,
@@ -12,9 +13,43 @@ import {
   Image,
   Heading,
   Text,
+  useToast,
 } from '@chakra-ui/react';
+import { login } from '../../store/auth/actions';
+import { useEffect } from 'react';
+
 
 const SignIn = () => {
+  const toast = useToast();
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const { pending, error, user, errorMessage } = useSelector(
+    (state) => state.user
+  );
+  useEffect(() => {
+    if (error) {
+      toast({
+        title: 'Error',
+        description: errorMessage,
+        status: 'error',
+        duration: 6000,
+        isClosable: true,
+      });
+    }
+  }, [error, errorMessage]);
+
+  useEffect(() => {
+    if (user) {
+      toast({
+        title: 'Success',
+        description: 'User logged in successfully',
+        status: 'success',
+        duration: 6000,
+        isClosable: true,
+      });
+      // router.push('/');
+    }
+  }, [user]);
   return (
     <Box h="100vh" bg="white" color="gray.500">
       <Flex justify="space-around" h="93.5vh" align="center">
@@ -24,12 +59,12 @@ const SignIn = () => {
         <Formik
           initialValues={{ email: '', password: '' }}
           onSubmit={(values) => {
-            alert(JSON.stringify(values, null, 2));
+            dispatch(login(values));
           }}
         >
           {({ handleSubmit, errors, touched }) => (
             <VStack spacing={5} align={['center', 'center', 'flex-start']}>
-              <Heading color="purple.500" size="md">
+              <Heading color="purple.500">
                 Welcome Back
               </Heading>
               <Form onSubmit={handleSubmit}>
@@ -61,20 +96,19 @@ const SignIn = () => {
                     name="password"
                     type="password"
                     placeholder="Enter Password"
-                    // validate={(value) => {
-                    //   let error;
-                    //   if (value.length < 6) {
-                    //     error =
-                    //       "Password must contain at least 6 characters";
-                    //   }
-
-                    //   return error;
-                    // }}
+                    validate={(value) => {
+                      let error;
+                      if (value.length < 6) {
+                        error =
+                          "Password must contain at least 6 characters";
+                      }
+                      return error;
+                    }}
                   />
                   <FormErrorMessage>{errors.password}</FormErrorMessage>
                 </FormControl>
-                <Button type="submit" colorScheme="purple" w="full">
-                  Login
+                <Button type="submit" colorScheme="purple" w="full" disabled={pending}>
+                {pending ? 'Loading...' : 'LOGIN'}  
                 </Button>
               </Form>
               <Box w="full" display="flex" justifyContent="center">
