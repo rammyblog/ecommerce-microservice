@@ -1,10 +1,13 @@
 import { AddIcon } from '@chakra-ui/icons';
 import { Badge, Box, Button, Flex, Image, Text } from '@chakra-ui/react';
 import Link from 'next/link';
+import { useDispatch } from 'react-redux';
 import { FALLBACK_IMAGE } from '../../constants';
+import { addToCart } from '../../store/cart/slice';
 
 export default function SingleProduct({ product }) {
   const { image, name, sellingPrice, costPrice, category, id } = product;
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -45,6 +48,7 @@ export default function SingleProduct({ product }) {
               colorScheme="gray.500"
               variant="outline"
               leftIcon={<AddIcon />}
+              onClick={() => dispatch(addToCart({ product, qty: 1 }))}
             >
               Add to cart
             </Button>
