@@ -18,14 +18,16 @@ import {
 import { login } from '../../store/auth/actions';
 import { useEffect } from 'react';
 
-
 const SignIn = () => {
   const toast = useToast();
   const router = useRouter();
   const dispatch = useDispatch();
-  const { pending, error, user, errorMessage } = useSelector(
+  const { pending, error, token, errorMessage, user } = useSelector(
     (state) => state.user
   );
+
+
+
   useEffect(() => {
     if (error) {
       toast({
@@ -39,7 +41,7 @@ const SignIn = () => {
   }, [error, errorMessage]);
 
   useEffect(() => {
-    if (user) {
+    if (token) {
       toast({
         title: 'Success',
         description: 'User logged in successfully',
@@ -47,9 +49,10 @@ const SignIn = () => {
         duration: 6000,
         isClosable: true,
       });
-      // router.push('/');
+      router.push('/');
     }
-  }, [user]);
+  }, [token]);
+
   return (
     <Box h="100vh" bg="white" color="gray.500">
       <Flex justify="space-around" h="93.5vh" align="center">
@@ -64,9 +67,7 @@ const SignIn = () => {
         >
           {({ handleSubmit, errors, touched }) => (
             <VStack spacing={5} align={['center', 'center', 'flex-start']}>
-              <Heading color="purple.500">
-                Welcome Back
-              </Heading>
+              <Heading color="purple.500">Welcome Back</Heading>
               <Form onSubmit={handleSubmit}>
                 <FormControl
                   isInvalid={!!errors.email && touched.email}
@@ -99,16 +100,20 @@ const SignIn = () => {
                     validate={(value) => {
                       let error;
                       if (value.length < 6) {
-                        error =
-                          "Password must contain at least 6 characters";
+                        error = 'Password must contain at least 6 characters';
                       }
                       return error;
                     }}
                   />
                   <FormErrorMessage>{errors.password}</FormErrorMessage>
                 </FormControl>
-                <Button type="submit" colorScheme="purple" w="full" disabled={pending}>
-                {pending ? 'Loading...' : 'LOGIN'}  
+                <Button
+                  type="submit"
+                  colorScheme="purple"
+                  w="full"
+                  disabled={pending}
+                >
+                  {pending ? 'Loading...' : 'LOGIN'}
                 </Button>
               </Form>
               <Box w="full" display="flex" justifyContent="center">

@@ -1,6 +1,6 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import products from "./products/productSlice";
-import user from "./auth/auth";
+import user from "./auth/authSlice";
 
 const combinedReducer = combineReducers({
   products,

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { register, login } from './actions';
+import { register, login, getLoggedInUser } from './actions';
 
 const initialState = {
   user: null,
@@ -7,6 +7,7 @@ const initialState = {
   error: false,
   errorMessage: null,
   success: null,
+  token: null,
 };
 
 export const authSlice = createSlice({
@@ -17,7 +18,9 @@ export const authSlice = createSlice({
       state.user = action.payload;
     },
     loginUser: (state, action) => {
-      console.log(state, action.payload)
+      state.token = action.payload;
+    },
+    getLoggedInUserAction: (state, action) => {
       state.user = action.payload;
     },
   },
@@ -44,16 +47,31 @@ export const authSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, { payload }) => {
         state.pending = false;
-        state.user = payload;
+        state.token = payload;
       })
       .addCase(login.rejected, (state, action) => {
         state.pending = false;
         state.error = true;
         state.errorMessage = action.error.message;
+      })
+      .addCase(getLoggedInUser.pending, (state, action) => {
+        state.pending = true;
+        state.error = false;
+        state.errorMessage = null;
+      })
+      .addCase(getLoggedInUser.fulfilled, (state, { payload }) => {
+        state.pending = false;
+        state.user = payload;
+      })
+      .addCase(getLoggedInUser.rejected, (state, { payload }) => {
+        state.pending = false;
+        state.error = true;
+        state.errorMessage = payload;
       });
   },
 });
 
-export const { registerUser, loginUser } = authSlice.actions;
+export const { registerUser, loginUser, getLoggedInUserAction } =
+  authSlice.actions;
 
 export default authSlice.reducer;
