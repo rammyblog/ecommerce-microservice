@@ -1,7 +1,7 @@
-import { Formik, Form } from 'formik';
+import { Form, Formik } from 'formik';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import registerImage from '../assets/register-image.svg';
 import CustomInput from '../components/customInput/CustomInput';
@@ -10,7 +10,6 @@ import { register } from '../store/auth/actions';
 import {
   Box,
   Button,
-  Container,
   Flex,
   FormControl,
   FormErrorMessage,
@@ -25,9 +24,16 @@ export default function App() {
   const toast = useToast();
   const router = useRouter();
   const dispatch = useDispatch();
+  const [request, setRequest] = useState(false);
   const { pending, error, user, errorMessage } = useSelector(
     (state) => state.user
   );
+
+  useEffect(() => {
+    if (user) {
+      router.push('/', undefined, { shallow: true });
+    }
+  });
   useEffect(() => {
     if (error) {
       toast({
@@ -41,7 +47,7 @@ export default function App() {
   }, [error, errorMessage]);
 
   useEffect(() => {
-    if (user) {
+    if (user && request) {
       toast({
         title: 'Success',
         description: 'Registration successful',
@@ -49,6 +55,7 @@ export default function App() {
         duration: 6000,
         isClosable: true,
       });
+      setRequest(false);
       router.push('/login');
     }
   }, [user]);
@@ -67,6 +74,7 @@ export default function App() {
               password: '',
             }}
             onSubmit={(values) => {
+              setRequest(true);
               dispatch(register(values));
             }}
           >

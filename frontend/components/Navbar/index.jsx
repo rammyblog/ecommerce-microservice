@@ -6,10 +6,12 @@ import {
   Heading,
   Spacer,
 } from '@chakra-ui/react';
-import React from 'react';
+import React, { memo } from 'react';
 import NextLink from 'next/link';
+import { useSelector } from 'react-redux';
 
 function Navbar() {
+  const { user } = useSelector((state) => state.user);
   return (
     <Flex>
       <Box p="2">
@@ -21,17 +23,18 @@ function Navbar() {
       </Box>
 
       <Spacer />
-
-      <ButtonGroup gap="4">
-        <NextLink href="/register">
-          <Button colorScheme="purple">Sign Up</Button>
-        </NextLink>
-        <NextLink href="/login">
-          <Button colorScheme="purple">Log in</Button>
-        </NextLink>
-      </ButtonGroup>
+      {!user ? (
+        <ButtonGroup gap="4">
+          <NextLink href="/register">
+            <Button colorScheme="purple">Sign Up</Button>
+          </NextLink>
+          <NextLink href="/login">
+            <Button colorScheme="purple">Log in</Button>
+          </NextLink>
+        </ButtonGroup>
+      ) : null}
     </Flex>
   );
 }
 
-export default Navbar;
+export default memo(Navbar);
