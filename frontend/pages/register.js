@@ -31,7 +31,7 @@ export default function App() {
 
   useEffect(() => {
     if (user) {
-      router.push('/', undefined, { shallow: true });
+      router.push('/');
     }
   });
   useEffect(() => {

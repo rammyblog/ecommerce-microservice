@@ -26,7 +26,11 @@ const SignIn = () => {
     (state) => state.user
   );
 
-
+  useEffect(() => {
+    if (user) {
+      router.push('/');
+    }
+  });
 
   useEffect(() => {
     if (error) {
