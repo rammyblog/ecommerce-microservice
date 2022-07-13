@@ -7,7 +7,8 @@ import {
   registerValidation,
   loginValidation
 } from '../utils/user.validation.js';
-
+import SuccessResponse from "../utils/success.js"
+import ErrorResponse from "../utils/error.js"
 const validation = {
   register: registerValidation,
   login: loginValidation
@@ -20,14 +21,14 @@ const handleValidation = (body, res, type) => {
   }
 };
 
-export const createUser = async (req, res) => {
+export const createUser = async (req, res, next) => {
   try {
     handleValidation(req.body, res, 'register');
     //   Checking if the user is already in the db
     const emailExist = await User.findOne({ where: { email: req.body.email } });
 
     if (emailExist) {
-      return res.status(400).json({ error_msg: 'E-Mail already exists' });
+      return next(new ErrorResponse('E-Mail already exists', 400));
     }
     req.body.password = await passwordEncrypt(req.body.password);
 
@@ -35,14 +36,14 @@ export const createUser = async (req, res) => {
     console.log(req.body);
     const user = await User.create(req.body);
     // Send email using sendgrid here
-    return res.status(201).json({ data: user.toJSON() });
+    return SuccessResponse(res, "User created successfully", user.toJSON(),  201)
+
   } catch (err) {
-    console.log({ err });
-    return res.status(400).json({ error_msg: err.message });
+    return next(new ErrorResponse(err.message, 400));
   }
 };
 
-export const loginUser = async (req, res) => {
+export const loginUser = async (req, res, next) => {
   // Validate data before creating a user
 
   try {
@@ -56,7 +57,7 @@ export const loginUser = async (req, res) => {
     const validPass = await bcrypt.compare(req.body.password, user.password);
 
     if (!validPass) {
-      return res.status(400).json({ error_msg: 'Invalid password' });
+      return next(new ErrorResponse('Invalid password', 400));
     }
 
     //   Create and assign a token
@@ -64,8 +65,10 @@ export const loginUser = async (req, res) => {
       { id: user.id, role: user.role, email: user.email },
       process.env.TOKEN_SECRET
     );
-    return res.status(200).json({ access_token: token });
+    return SuccessResponse(res, "Login successful", token,  200)
+
   } catch (err) {
-    return res.status(400).json({ error_msg: err.message });
+    return next(new ErrorResponse(err.message, 400));
+
   }
 };
