@@ -32,7 +32,7 @@ export const cartSlice = createSlice({
       const cart =
         localStorageTest() &&
         JSON.parse(localStorage.getItem('ecommerceMS-cart'));
-      return cart;
+      return cart ? cart : initialState;
     },
     clearCart: () => {
       localStorage.removeItem('ecommerceMS-cart');
