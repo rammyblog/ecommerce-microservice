@@ -5,11 +5,14 @@ import setupLogging from './logging.js';
 import productRoutes from './routes/product.routes.js';
 import categoryRoutes from './routes/category.routes.js';
 import errorHandlerMiddleware from './middleware/errorHandlerMiddleware.js';
+import cors from 'cors';
 
 dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
+
 connectDb();
 const port = process.env.PORT || 3000;
 

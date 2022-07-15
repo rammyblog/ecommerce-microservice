@@ -1,8 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { BASE_URL } from '../../constants';
 import axios from 'axios';
-import checkJWT from '../../utils/jwtDecoder';
-import { localStorageTest } from '../../utils/localStorage';
+import { Cookies } from 'react-cookie';
+import { BASE_URL } from '../../constants';
 
 export const register = createAsyncThunk(
   'auth/register',
@@ -15,7 +14,7 @@ export const register = createAsyncThunk(
         password,
       });
 
-      return data;
+      return data.data;
     } catch (error) {
       throw error.response.data.error_msg;
     }
@@ -26,26 +25,29 @@ export const login = createAsyncThunk(
   'auth/login',
   async ({ email, password }) => {
     try {
+      const cookies = new Cookies();
       const { data } = await axios.post(`${BASE_URL}api/auth/login`, {
         email,
         password,
       });
-      const { access_token } = data;
-      localStorageTest() && localStorage.setItem('ecommerceMS', access_token);
-      return access_token;
+      const token = data.data;
+      cookies.set('ecommerceToken', token, { maxAge: 60 * 60 * 24 });
+      return token;
     } catch (error) {
+      console.log;
       throw error.response.data.error_msg;
     }
   }
 );
 
-export const getLoggedInUser = createAsyncThunk('auth/user', async () => {
+export const getLoggedInUser = createAsyncThunk('auth/user', async (token) => {
   try {
-    if (localStorageTest()) {
-      const { id } = checkJWT();
-      const { data } = await axios.get(`${BASE_URL}api/users/${id}`);
-      return data.data;
-    }
+    const { data } = await axios.get(`${BASE_URL}api/auth/validate`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return data.data;
   } catch (error) {
     throw error.response.data.error_msg;
   }
