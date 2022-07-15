@@ -1,12 +1,20 @@
 import { SimpleGrid } from '@chakra-ui/react';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import Layout from '../components/Layout';
 import SingleProduct from '../components/Products/SingleProduct';
 import getStore from '../store';
 import { getLoggedInUser } from '../store/auth/actions';
+import { restoreCart } from '../store/cart/slice';
 import { getProducts } from '../store/products/actions';
 
 export default function Home({ initialState, token }) {
   const { products } = initialState;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(restoreCart());
+  }, []);
 
   return (
     <Layout>

@@ -1,13 +1,20 @@
 import ErrorPage from 'next/error';
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Layout from '../../components/Layout';
 import SingleProductDetail from '../../components/SingleProductDetail/Index';
 import getStore from '../../store';
 import { getLoggedInUser } from '../../store/auth/actions';
+import { restoreCart } from '../../store/cart/slice';
 import { getSingleProduct } from '../../store/products/actions';
 
 const ProductDetail = ({ initialState }) => {
   const { error, pending, product } = useSelector((state) => state.products);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(restoreCart());
+  }, []);
 
   if (pending) {
     return <h1>Loading</h1>;

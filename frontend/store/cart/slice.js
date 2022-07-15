@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { localStorageTest } from '../../utils/localStorage';
 
 const initialState = {
   cart: [],
@@ -20,18 +21,18 @@ export const cartSlice = createSlice({
       state.count = count;
       state.totalAmount = totalAmount;
     },
-
+    // Payload is product.id!!!!
     removeFromCart: (state, { payload }) => {
-      return {
-        ...state,
-        ...removeItemFromCart(state, payload),
-      };
+      const { cart, count, totalAmount } = removeItemFromCart(state, payload);
+      state.cart = cart;
+      state.count = count;
+      state.totalAmount = totalAmount;
     },
-    restoreCart: (state, { payload }) => {
-      return {
-        ...state,
-        ...payload,
-      };
+    restoreCart: () => {
+      const cart =
+        localStorageTest() &&
+        JSON.parse(localStorage.getItem('ecommerceMS-cart'));
+      return cart;
     },
     clearCart: () => {
       localStorage.removeItem('ecommerceMS-cart');
@@ -67,7 +68,6 @@ function addToExistingObjInCart(prevState, payload) {
 function removeItemFromCart(prevState, payload) {
   const newCartState = { ...prevState };
   newCartState.cart = newCartState.cart.filter((obj) => obj.id !== payload);
-  newCartState.priceBeforeCoupon = calculateTotal(newCartState.cart);
   newCartState.totalAmount = calculateTotal(newCartState.cart);
   newCartState.count = countItemsInCart(newCartState.cart);
   localStorage.setItem('ecommerceMS-cart', JSON.stringify(newCartState));
@@ -78,7 +78,7 @@ function removeItemFromCart(prevState, payload) {
 function calculateTotal(cart) {
   let total = 0;
   total = cart.reduce((sum, i) => {
-    return sum + i.price * parseInt(i.qty, 10);
+    return sum + i.sellingPrice * parseInt(i.qty, 10);
   }, 0);
   return +total.toFixed(2);
 }
