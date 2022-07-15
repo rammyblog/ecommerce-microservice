@@ -1,27 +1,29 @@
 import ErrorPage from 'next/error';
+import { useSelector } from 'react-redux';
+import Layout from '../../components/Layout';
+import SingleProductDetail from '../../components/SingleProductDetail/Index';
 import getStore from '../../store';
+import { getLoggedInUser } from '../../store/auth/actions';
 import { getSingleProduct } from '../../store/products/actions';
 
-import SingleProductDetail from '../../components/SingleProductDetail/Index';
-
 const ProductDetail = ({ initialState }) => {
-  const { products } = initialState;
-  const { error, product, pending } = products;
+  const { error, pending, product } = useSelector((state) => state.products);
+
   if (pending) {
     return <h1>Loading</h1>;
   }
-  if (error || !product) {
+  if (error) {
     return <ErrorPage statusCode={404} withDarkMode={false} />;
   }
   return (
-    <>
-      <SingleProductDetail product={product} />
-    </>
+    <Layout>{product && <SingleProductDetail product={product} />}</Layout>
   );
 };
 
 export async function getServerSideProps(ctx) {
+  const token = ctx.req.cookies?.ecommerceToken || null;
   const store = getStore();
+  await store.dispatch(getLoggedInUser(token));
   await store.dispatch(getSingleProduct(ctx.params.id));
   return {
     props: {
