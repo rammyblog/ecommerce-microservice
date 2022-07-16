@@ -2,7 +2,7 @@ import { AddIcon } from '@chakra-ui/icons';
 import { Badge, Box, Button, Flex, Image, Text } from '@chakra-ui/react';
 import Link from 'next/link';
 import { useDispatch } from 'react-redux';
-import { FALLBACK_IMAGE } from '../../constants';
+import { FALLBACK_IMAGE, NAIRA_SYMBOL } from '../../constants';
 import { addToCart } from '../../store/cart/slice';
 
 export default function SingleProduct({ product }) {
@@ -40,9 +40,9 @@ export default function SingleProduct({ product }) {
           >
             <Flex>
               <Text as="s" mr="2">
-                ₦{costPrice}
+                {NAIRA_SYMBOL}{costPrice}
               </Text>
-              <Text>₦{sellingPrice}</Text>
+              <Text>{NAIRA_SYMBOL}{sellingPrice}</Text>
             </Flex>
             <Button
               colorScheme="gray.500"

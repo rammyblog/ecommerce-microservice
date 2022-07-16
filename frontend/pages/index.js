@@ -30,7 +30,8 @@ export default function Home({ initialState, token }) {
 export const getServerSideProps = async (ctx) => {
   const token = ctx.req.cookies?.ecommerceToken || null;
   const store = getStore();
-  await store.dispatch(getLoggedInUser(token));
+
+  token && (await store.dispatch(getLoggedInUser(token)));
   await store.dispatch(getProducts());
   return {
     props: {

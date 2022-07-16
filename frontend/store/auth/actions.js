@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { Cookies } from 'react-cookie';
-import { BASE_URL } from '../../constants';
+import { BASE_URL, GENERIC_ERROR } from '../../constants';
 
 export const register = createAsyncThunk(
   'auth/register',
@@ -16,7 +16,9 @@ export const register = createAsyncThunk(
 
       return data.data;
     } catch (error) {
-      throw error.response.data.error_msg;
+      throw error.response.data.error_msg
+        ? error.response.data.error_msg
+        : GENERIC_ERROR;
     }
   }
 );
@@ -35,7 +37,9 @@ export const login = createAsyncThunk(
       return token;
     } catch (error) {
       console.log;
-      throw error.response.data.error_msg;
+      throw error.response.data.error_msg
+        ? error.response.data.error_msg
+        : GENERIC_ERROR;
     }
   }
 );
@@ -49,6 +53,9 @@ export const getLoggedInUser = createAsyncThunk('auth/user', async (token) => {
     });
     return data.data;
   } catch (error) {
-    throw error.response.data.error_msg;
+    console.log(error.response.data.error_msg);
+    throw error.response.data.error_msg
+      ? error.response.data.error_msg
+      : GENERIC_ERROR;
   }
 });
