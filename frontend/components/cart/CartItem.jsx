@@ -37,7 +37,7 @@ const CartItem = ({ id, name, sellingPrice, image, qty, item }) => {
         </Text>
       </Flex>
       <Flex alignItems="center" w="100%" justifyContent="space-between">
-        <Button bg="transparent" _hover={{ bg: 'purple.700', color: 'white' }}>
+        <Button bg="transparent" _hover={{ bg: 'red.300', color: 'white' }}>
           <DeleteIcon />
           <Text ml={2} onClick={() => dispatch(deleteFromCart(id))}>
             REMOVE
