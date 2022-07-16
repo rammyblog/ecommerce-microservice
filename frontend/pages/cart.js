@@ -11,7 +11,7 @@ const Cart = () => {
 
   useEffect(() => {
     dispatch(restoreCart());
-  }, []);
+  });
   return (
     <Layout>
       <CartContainer />
