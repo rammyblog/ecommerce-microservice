@@ -6,16 +6,13 @@ import {
   Image,
   Select,
   Text,
-  useToast,
+  useToast
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { FALLBACK_IMAGE } from '../../constants';
+import { FALLBACK_IMAGE, NAIRA_SYMBOL } from '../../constants';
 import {
-  addToCart,
-  clearCart,
-  removeFromCart,
-  restoreCart,
+  addToCart
 } from '../../store/cart/slice';
 
 function SingleProductDetail({ product }) {
@@ -44,9 +41,9 @@ function SingleProductDetail({ product }) {
             Price:
           </Text>
           <Text as="s" mr="2">
-            ₦{product.costPrice}
+            {NAIRA_SYMBOL}{product.costPrice}
           </Text>
-          <Text> ₦{product.sellingPrice}</Text>
+          <Text> {NAIRA_SYMBOL}{product.sellingPrice}</Text>
         </Flex>
         <Select
           py={4}

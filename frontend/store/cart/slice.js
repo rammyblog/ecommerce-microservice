@@ -13,12 +13,10 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, { payload }) => {
-      console.log(state)
       const { cart, count, totalAmount } = addToExistingObjInCart(
         state,
         payload
       );
-      console.log(cart, count, totalAmount)
       state.cart = cart;
       state.count = count;
       state.totalAmount = totalAmount;
@@ -30,6 +28,13 @@ export const cartSlice = createSlice({
       state.count = count;
       state.totalAmount = totalAmount;
     },
+    deleteFromCart: (state, { payload }) => {
+      const { cart, count, totalAmount } = deleteItemFromCart(state, payload);
+      state.cart = cart;
+      state.count = count;
+      state.totalAmount = totalAmount;
+    },
+
     restoreCart: () => {
       const cart =
         localStorageTest() &&
@@ -49,7 +54,7 @@ function addToExistingObjInCart(prevState, payload) {
   const { product, qty } = payload;
   let existingProduct = newCartState.cart.find((obj) => obj.id === product.id);
   if (existingProduct) {
-    existingProduct.qty = qty;
+    existingProduct.qty += qty;
     newCartState.totalAmount = calculateTotal(newCartState.cart);
     newCartState.count = countItemsInCart(newCartState.cart);
     localStorage.setItem('ecommerceMS-cart', JSON.stringify(newCartState));
@@ -68,6 +73,25 @@ function addToExistingObjInCart(prevState, payload) {
 }
 
 function removeItemFromCart(prevState, payload) {
+  const id = payload;
+  const newCartState = { ...prevState };
+  const updatedItem = newCartState.cart.find((obj) => obj.id === id);
+  // newCartState.cart = newCartState.cart.filter((obj) => obj.id !== id);
+  // console.log(updatedItem);
+  if (updatedItem.qty === 1) {
+    newCartState.cart = newCartState.cart.filter((obj) => obj.id !== id);
+  } else {
+    updatedItem.qty--;
+  }
+  // newCartState.cart.push(updatedItem);
+  newCartState.totalAmount = calculateTotal(newCartState.cart);
+  newCartState.count = countItemsInCart(newCartState.cart);
+  localStorage.setItem('ecommerceMS-cart', JSON.stringify(newCartState));
+  const { cart, count, totalAmount } = newCartState;
+  return { cart, count, totalAmount };
+}
+
+function deleteItemFromCart(prevState, payload) {
   const newCartState = { ...prevState };
   newCartState.cart = newCartState.cart.filter((obj) => obj.id !== payload);
   newCartState.totalAmount = calculateTotal(newCartState.cart);
@@ -91,7 +115,12 @@ function countItemsInCart(cart) {
   }, 0);
 }
 
-export const { addToCart, removeFromCart, restoreCart, clearCart } =
-  cartSlice.actions;
+export const {
+  addToCart,
+  removeFromCart,
+  restoreCart,
+  clearCart,
+  deleteFromCart,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;
