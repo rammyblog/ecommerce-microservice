@@ -8,7 +8,7 @@ import {
   Heading,
   Icon,
   IconButton,
-  Spacer,
+  Spacer
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { memo } from 'react';

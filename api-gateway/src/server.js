@@ -1,6 +1,7 @@
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
+import cookieParser from 'cookie-parser';
 import { graphqlHTTP } from 'express-graphql';
 import { GraphQLSchema } from 'graphql';
 import connectDb from './db/index.js';
@@ -19,6 +20,7 @@ setupAuth(app, ROUTES);
 setupProxies(app, ROUTES);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(cors());
 connectDb();
 const port = process.env.PORT || 3004;

@@ -1,20 +1,27 @@
-import { memo, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getLoggedInUser } from '../../store/auth/actions';
-import checkJWT from '../../utils/jwtDecoder';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
-function AuthHOC({ children }) {
-  const auth = checkJWT();
-  const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.user);
-  const authId = auth && auth.id;
-  const userId = user && user.id;
-  useEffect(() => {
-    if (authId && !userId) {
-      dispatch(getLoggedInUser());
-    }
-  }, [auth, user]);
-  return <>{children}</>;
-}
 
-export default memo(AuthHOC);
+const withAuthentication = (WrappedComponent) => {
+  const RequiresAuthentication = (props) => {
+    // get user role from redux state
+    const id = useSelector(({ user }) => user.id);
+
+    useEffect(() => {
+      // if a there isn't a logged in user and their role has been set to "guest"
+      // then redirect them to "/signin"
+      if (role === 'guest') Router.push('/signin');
+    }, [role]);
+
+    // if there's a loggedInUser, show the wrapped page, otherwise show a loading indicator
+    return role && role !== 'guest' ? (
+      <WrappedComponent {...props} />
+    ) : (
+      <div>Loading...</div>
+    );
+  };
+
+  return RequiresAuthentication;
+};
+
+export default withAuthentication;

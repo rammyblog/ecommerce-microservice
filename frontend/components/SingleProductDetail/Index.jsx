@@ -11,7 +11,12 @@ import {
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { FALLBACK_IMAGE } from '../../constants';
-import { addToCart } from '../../store/cart/slice';
+import {
+  addToCart,
+  clearCart,
+  removeFromCart,
+  restoreCart,
+} from '../../store/cart/slice';
 
 function SingleProductDetail({ product }) {
   const toast = useToast();
