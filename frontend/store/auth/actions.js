@@ -46,7 +46,6 @@ export const login = createAsyncThunk(
 
 export const getLoggedInUser = createAsyncThunk('auth/user', async (token) => {
   try {
-    console.log(token);
     const { data } = await axios.get(`${BASE_URL}api/auth/validate`, {
       headers: {
         Authorization: `Bearer ${token}`,
