@@ -12,10 +12,12 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, { payload }) => {
+      console.log(state)
       const { cart, count, totalAmount } = addToExistingObjInCart(
         state,
         payload
       );
+      console.log(cart, count, totalAmount)
       state.cart = cart;
       state.count = count;
       state.totalAmount = totalAmount;
