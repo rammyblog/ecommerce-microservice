@@ -23,6 +23,7 @@ AppDataSource.initialize()
   .catch((error) => console.log(error));
 
 app.use('/api/orders', orderRoutes);
+
 const kafkaTopic = 'transaction-success';
 kafkaConsumer(kafkaTopic);
 

@@ -1,7 +1,5 @@
-
-
 import express from 'express';
-import categoryController  from '../controllers/category.controller.js';
+import categoryController from '../controllers/category.controller.js';
 
 const router = express.Router();
 const {
@@ -12,11 +10,10 @@ const {
   updateCategory
 } = categoryController;
 
-
 // Category routes
-router.get("/",getAllCategories);
-router.get("/:categoryId", getACategory)
-router.post("/categories",  createCategory)
-router.delete("/:categoryId", deleteCategory)
-router.patch("/:categoryId",  updateCategory);
+router.get('/', getAllCategories);
+router.post('/', createCategory);
+router.get('/:categoryId', getACategory);
+router.delete('/:categoryId', deleteCategory);
+router.patch('/:categoryId', updateCategory);
 export default router;

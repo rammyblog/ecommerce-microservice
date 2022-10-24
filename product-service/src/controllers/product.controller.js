@@ -102,16 +102,15 @@ const product = {
         );
       }
 
+      console.log(req.user);
       const productCollection = await Product.create({
         name: req.body.name,
         sellingPrice: req.body.sellingPrice,
-        userId: req.user.id,
         description: req.body.description,
         availableQuantity: req.body.availableQuantity,
         costPrice: req.body.costPrice,
         categoryId: req.body.categoryId,
         sku: Math.floor(Math.random() * 100) + 1,
-        expirationDate: req.body.expirationDate
       });
       return SuccessResponse(
         res,

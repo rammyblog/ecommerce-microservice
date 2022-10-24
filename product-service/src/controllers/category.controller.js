@@ -50,7 +50,8 @@ const category = {
         }  
         const categoryCollection = await Category.create({
             name: req.body.name,
-            description: req.body.description
+            description: req.body.description,
+            isActive: true
         })
         return SuccessResponse(res, "Category created successfully", categoryCollection,  201)
 
