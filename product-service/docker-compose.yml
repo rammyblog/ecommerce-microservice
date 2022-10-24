@@ -31,3 +31,8 @@ services:
 
 volumes:
   pgdata1: {}
+
+networks:
+    default:
+        external:
+            name: ecommerce-build

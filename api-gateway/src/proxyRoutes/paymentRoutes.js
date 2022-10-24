@@ -5,7 +5,8 @@ const ROUTES = [
     url: '/api/initialize-transaction/',
     auth: true,
     proxy: {
-      target: 'http://localhost:3003/api/transaction/initialize-transaction/',
+      target:
+        'http://payment-service:3003/api/transaction/initialize-transaction/',
       changeOrigin: true,
       pathRewrite: {
         [`^/api/initialize-transaction/`]: ''

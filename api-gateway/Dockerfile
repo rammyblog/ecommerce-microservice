@@ -8,4 +8,5 @@ RUN npm i
 RUN chown -R app /opt/app
 USER app
 EXPOSE 3000
-CMD [ "npm", "start" ]
+ENTRYPOINT [ "./start.sh" ]
+# CMD [ "npm", "start" ]

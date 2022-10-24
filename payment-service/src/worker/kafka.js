@@ -1,6 +1,7 @@
 import { Kafka, logLevel } from 'kafkajs';
 
-const host = process.env.KAFKA_ADVERTISED_HOST_NAME || '127.0.0.1';
+const host = 'kafka';
+
 
 const kafka = new Kafka({
   clientId: 'ms-payment-service',

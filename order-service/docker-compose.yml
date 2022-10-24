@@ -52,7 +52,12 @@ services:
       - '3002:3002'
       # - '29092:29092'
 
-    network_mode: 'payment-service_default'
+    # network_mode: 'payment-service_default'
 
 volumes:
   pgdata1: {}
+
+networks:
+    default:
+        external:
+            name: ecommerce-build

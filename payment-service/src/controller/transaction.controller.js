@@ -77,6 +77,7 @@ export const paystackWebhook = async (req, res, next) => {
           value: JSON.stringify({
             status: 'successful',
             orderId: transaction.orderId,
+            reference: data.reference
           }),
         });
         if (transaction) {

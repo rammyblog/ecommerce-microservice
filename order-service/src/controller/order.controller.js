@@ -31,11 +31,10 @@ export const createOrder = async (req, res, next) => {
       return acc + item.price * item.quantity;
     }, 0);
 
-    const order = await OrderService.create(newOrder);
-
     const orderDetailsArray = [];
+    const order = await OrderService.create(newOrder);
     cart.forEach(async (item) => {
-      const url = new URL(`${productBaseUrl}/api/products/${item.productId}`);
+      const url = `http://product-service:3001/api/products/${item.productId}`;
 
       const options = {
         method: 'GET',
@@ -46,7 +45,10 @@ export const createOrder = async (req, res, next) => {
       const response = await fetch(url, options);
       const jsonResponse = await response.json();
       const data = jsonResponse.data;
-      if (data.id === item.productId && data.sellingPrice === item.price) {
+      if (
+        data.id === parseInt(item.productId) &&
+        data.sellingPrice === parseInt(item.price)
+      ) {
         item.price = parseFloat(item.price);
         item.quantity = parseInt(item.quantity);
         const newOrderDetail = OrderDetailService.init();
@@ -55,13 +57,19 @@ export const createOrder = async (req, res, next) => {
         newOrderDetail.quantity = item.quantity;
         newOrderDetail.orderId = order.id;
 
+        // console.log({ newOrderDetail });
+
         // defer the creation
-        orderDetailsArray.push(OrderDetailService.create(newOrderDetail));
+        // orderDetailsArray.push(await OrderDetailService.create(newOrderDetail));
+        // console.log({ orderDetailsArray });
+
+        const order_details = await OrderDetailService.create(newOrderDetail);
+        const updateValues = {
+          order_details,
+        };
+        await OrderService.updateOrderDetails(order, order_details.id);
       }
     });
-    order.order_details = await Promise.all(orderDetailsArray);
-
-    await OrderService.update(order);
     // send topic to payment service
     return SuccessResponse(res, 'Order created successfully', order, 201);
 
@@ -69,8 +77,6 @@ export const createOrder = async (req, res, next) => {
   } catch (err) {
     console.log({ err });
     return next(new ErrorResponse(err.message, 400));
-
-    // return res.status(400).json({ error_msg: err.message });
   }
 };
 
@@ -87,13 +93,11 @@ export const getOrders = async (req, res, next) => {
 export const getSingleOrder = async (req, res, next) => {
   try {
     const order = await OrderService.getById(req.params.id);
-    // res.status(200).json({ order });
+
     return SuccessResponse(res, 'Order retrieved successfully', order, 200);
   } catch (err) {
     console.log({ err });
     return next(new ErrorResponse(err.message, 400));
-
-    // return res.status(400).json({ error_msg: err.message });
   }
 };
 

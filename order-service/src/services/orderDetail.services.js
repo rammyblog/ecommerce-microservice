@@ -1,5 +1,4 @@
 import AppDataSource from '../config/datasource.js';
-import OrderDetail from '../entity/OrderDetail.js';
 import OrderDetailModel from '../model/OrderDetail.js';
 var orderDetailRepo = AppDataSource.getRepository('OrderDetail');
 const orderDetailModelRepo = AppDataSource.getRepository('OrderDetailModel');

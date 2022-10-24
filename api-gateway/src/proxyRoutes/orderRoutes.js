@@ -5,7 +5,7 @@ const ROUTES = [
     url: '/api/create-orders/',
     auth: true,
     proxy: {
-      target: 'http://localhost:3002/api/orders',
+      target: 'http://order-service:3002/api/orders',
       changeOrigin: true,
       pathRewrite: {
         [`^/api/create-orders/`]: ''
@@ -16,7 +16,7 @@ const ROUTES = [
     url: '/api/orders/',
     auth: false,
     proxy: {
-      target: 'http://localhost:3002/api/orders',
+      target: 'http://order-service:3002/api/orders',
       changeOrigin: true,
       pathRewrite: {
         [`^/api/orders/`]: ''

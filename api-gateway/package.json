@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "nodemon src/server.js ",
     "start": "node src/server.js",
+    "migrate": "npx sequelize-cli db:migrate",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
