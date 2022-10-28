@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import CheckoutForm from './checkoutForm';
+import CheckoutForm from './CheckoutForm';
 import PaymentForm from './PaymentForm';
 
 const OnePageCheckoutComponent = ({ token }) => {
