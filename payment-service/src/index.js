@@ -9,21 +9,21 @@ import cors from 'cors';
 dotenv.config();
 
 const app = express();
+app.use(cors());
 const port = process.env.PORT || 3003;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
 
 setupLogging(app);
-
-app.use('/api/transaction', transactionRoutes);
 
 AppDataSource.initialize()
   .then(() => {
     console.log('Database connected');
   })
   .catch((error) => console.log(error));
+
+app.use('/api/transaction', transactionRoutes);
 
 app.use(errorHandlerMiddleware);
 

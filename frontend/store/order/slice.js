@@ -6,6 +6,7 @@ const initialState = {
   pending: false,
   error: false,
   message: null,
+  newOrder: null,
 };
 
 export const orderSlice = createSlice({
@@ -15,6 +16,7 @@ export const orderSlice = createSlice({
     createOrder: (state, action) => {
       state.orders = [...state.orders, action.payload];
       state.message = 'Order created Success';
+      state.newOrder = action.payload;
     },
     // getOrders: (state, action) => {
     //   state.orders = action.payload;
@@ -30,6 +32,7 @@ export const orderSlice = createSlice({
         state.pending = false;
         state.orders = [...state.orders, payload];
         state.message = 'Order created Success';
+        state.newOrder = payload;
       })
       .addCase(createOrderAction.rejected, (state) => {
         state.pending = false;

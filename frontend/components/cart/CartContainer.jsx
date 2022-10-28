@@ -4,10 +4,13 @@ import CartItem from './CartItem';
 import { useSelector } from 'react-redux';
 import { NAIRA_SYMBOL } from '../../constants';
 import Link from 'next/link';
+import { Router, useRouter } from 'next/router';
 
 const CartContainer = () => {
   const { cart, totalAmount } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.user);
+  const router = useRouter();
+
   return (
     <>
       <Flex
@@ -83,6 +86,7 @@ const CartContainer = () => {
             _hover={{ bg: 'purple.700' }}
             display="block"
             disabled={!user}
+            onClick={() => router.push('/onepagecheckout')}
           >
             CHECKOUT
           </Button>

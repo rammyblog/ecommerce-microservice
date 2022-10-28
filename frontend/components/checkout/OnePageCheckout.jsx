@@ -7,7 +7,6 @@ const OnePageCheckoutComponent = ({ token }) => {
   const [showCheckoutForm, setShowCheckOutForm] = useState(true);
   const [showPaymentForm, setShowPaymentForm] = useState(false);
 
-  
   return (
     <>
       {showCheckoutForm && (
@@ -17,7 +16,7 @@ const OnePageCheckoutComponent = ({ token }) => {
           token={token}
         />
       )}
-      <PaymentForm />
+      {showPaymentForm && <PaymentForm token={token} />}
     </>
   );
 };

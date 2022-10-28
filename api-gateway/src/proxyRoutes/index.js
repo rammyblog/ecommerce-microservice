@@ -4,8 +4,8 @@ import categoryRoutes from './categoryRoute.js';
 import productRoutes from './productRoutes.js';
 
 export default [
-  ...orderRoutes,
   ...paymentRoutes,
+  ...orderRoutes,
   ...categoryRoutes,
   ...productRoutes
 ];
