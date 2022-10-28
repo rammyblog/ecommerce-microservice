@@ -5,12 +5,16 @@ import setupLogging from './logging.js';
 import orderRoutes from './routes/order.routes.js';
 import kafkaConsumer from './worker/consumer.js';
 import errorHandlerMiddleware from "./middleware/errorHandlerMiddleware.js";
+import cors from 'cors';
+
 dotenv.config();
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
+
 
 setupLogging(app);
 
