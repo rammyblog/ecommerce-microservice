@@ -35,12 +35,12 @@ Here are some of the features of EGO:
 - Users can complete an order within seconds
 
 ## Tech Stack
--Node
--GraphQL
--Docker
--Kafka
--Zookeeper
--React
+- Node
+- GraphQL
+- Docker
+- Kafka
+- Zookeeper
+- React
 
 
 ## API
