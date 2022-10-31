@@ -8,8 +8,6 @@
 - [Introduction](#introduction)
 - [Features](#features)
 - [Requirements](#requirements)
-- [Quick Start](#quick-start)
-- [Testing](#testing)
 - [API](#requirements)
 - [Acknowledgements](#acknowledgements)
 
